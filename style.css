@@ -11,9 +11,35 @@ html, body {
   overflow: hidden; /* the inner #viewport handles scrolling, not the page */
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#topbar {
+  flex: 0 0 auto;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #171a24;
+  border-bottom: 1px solid #262a38;
+  color: #e6e8f0;
+  font: 14px/1.4 system-ui, -apple-system, sans-serif;
+}
+
+#topbar a {
+  color: #8fb8ff;
+  text-decoration: none;
+}
+
+#topbar a:hover {
+  text-decoration: underline;
+}
+
 #viewport {
-  width: 100vw;
-  height: 100vh;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow: auto;
   position: relative;
 }
@@ -27,7 +53,8 @@ html, body {
   position: absolute;
   width: 300px;
   height: 300px;
-  background: #0f1117;
+  background: #1a1d29;
+  border-radius: 16px;
   overflow: hidden;
   display: flex;
   align-items: center;
