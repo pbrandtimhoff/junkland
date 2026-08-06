@@ -21,6 +21,7 @@ const ANIMATION_FILES = [
   "color_shift.json",
   "spin_triangle.json",
   "wiggle_bar.json",
+  "bee-flower.json",
 ];
 
 const CELL = 300; // tile size in px
