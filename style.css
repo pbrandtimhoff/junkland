@@ -33,7 +33,6 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
 }
 
 .cell .anim {
