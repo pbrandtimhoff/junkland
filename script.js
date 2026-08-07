@@ -17,7 +17,20 @@
 const ANIMATION_FILES = [
   "bee-flower.json",
   "heart-arrow-looping.json",
-  "open-sign.json",
+  "bee-flower.json",
+  "heart-arrow-looping.json",
+  "bee-flower.json",
+  "heart-arrow-looping.json",
+  "bee-flower.json",
+  "heart-arrow-looping.json",
+  "bee-flower.json",
+  "heart-arrow-looping.json",
+  "bee-flower.json",
+  "heart-arrow-looping.json",
+  "bee-flower.json",
+  "heart-arrow-looping.json",
+  "bee-flower.json",
+  "heart-arrow-looping.json",
 ];
 
 const CELL = 300; // tile size in px
