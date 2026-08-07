@@ -114,8 +114,79 @@ function createCell(col, row, index) {
 
   const anim = lottie.loadAnimation({
     container: animDiv,
-    // Canvas renderer: each tile draws to its own independent canvas.
-    // (The SVG renderer can have multiple instances collide on shared
-    // internal IDs for gradients/clip-paths, which was making all but the
-    // most recently loaded animation render blank.)
-    renderer:
+    renderer: "svg",
+    loop: true,
+    autoplay: true,
+    path: `animations/${ANIMATION_FILES[index]}`,
+  });
+
+  activeCells.set(key, { el, anim });
+}
+
+function destroyCell(key) {
+  const data = activeCells.get(key);
+  if (!data) return;
+  data.anim.destroy();
+  data.el.remove();
+  activeCells.delete(key);
+}
+
+let ticking = false;
+
+function updateVisibleTiles() {
+  ticking = false;
+
+  const scrollLeft = viewport.scrollLeft;
+  const scrollTop = viewport.scrollTop;
+  const vw = viewport.clientWidth;
+  const vh = viewport.clientHeight;
+  const buffer = 1; // extra ring of tiles rendered just outside the viewport
+
+  const colStart = Math.max(0, Math.floor(scrollLeft / PITCH) - buffer);
+  const colEnd = Math.min(COLS - 1, Math.ceil((scrollLeft + vw) / PITCH) + buffer);
+  const rowStart = Math.max(0, Math.floor(scrollTop / PITCH) - buffer);
+  const rowEnd = Math.min(ROWS - 1, Math.ceil((scrollTop + vh) / PITCH) + buffer);
+
+  const needed = new Set();
+
+  for (let col = colStart; col <= colEnd; col++) {
+    for (let row = rowStart; row <= rowEnd; row++) {
+      const key = `${col}_${row}`;
+      const index = indexForPosition.get(key);
+      if (index === undefined) continue; // no animation placed at this spot
+      needed.add(key);
+      if (!activeCells.has(key)) {
+        createCell(col, row, index);
+      }
+    }
+  }
+
+  for (const key of Array.from(activeCells.keys())) {
+    if (!needed.has(key)) {
+      destroyCell(key);
+    }
+  }
+}
+
+function onScroll() {
+  if (!ticking) {
+    ticking = true;
+    requestAnimationFrame(updateVisibleTiles);
+  }
+}
+
+viewport.addEventListener("scroll", onScroll, { passive: true });
+
+// Keep the middle animation centered any time the window resizes.
+window.addEventListener("resize", centerView);
+
+// Center on the very first (middle) animation.
+function centerView() {
+  const centerX = CENTER * PITCH + CELL / 2;
+  const centerY = CENTER * PITCH + CELL / 2;
+  viewport.scrollLeft = centerX - viewport.clientWidth / 2;
+  viewport.scrollTop = centerY - viewport.clientHeight / 2;
+  updateVisibleTiles();
+}
+
+centerView();
