@@ -22,6 +22,7 @@ const ANIMATION_FILES = [
   "takeaction.json",
   "thisbetterwork.json",
   "bee-flower.json",
+  "heart-arrow-looping.json",
 ];
 
 const CELL = 300; // tile size in px
