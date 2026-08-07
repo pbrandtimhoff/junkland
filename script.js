@@ -175,9 +175,11 @@ function onScroll() {
 }
 
 viewport.addEventListener("scroll", onScroll, { passive: true });
-window.addEventListener("resize", updateVisibleTiles);
 
-// Start centered on the very first (middle) animation.
+// Keep the middle animation centered any time the window resizes.
+window.addEventListener("resize", centerView);
+
+// Center on the very first (middle) animation.
 function centerView() {
   const centerX = CENTER * PITCH + CELL / 2;
   const centerY = CENTER * PITCH + CELL / 2;
@@ -186,4 +188,9 @@ function centerView() {
   updateVisibleTiles();
 }
 
+// Layout can still be settling the instant this script runs, so center
+// again after the browser has finished a layout/paint pass, and once more
+// after everything (fonts, the lottie script, etc.) has fully loaded.
 centerView();
+requestAnimationFrame(() => requestAnimationFrame(centerView));
+window.addEventListener("load", centerView);
