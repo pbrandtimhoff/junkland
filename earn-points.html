@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Earn Points — Take Action for Causes You Care About | Propeller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  /* ===========================================================
+     EARN POINTS — editorial action feed.
+     Big feature images throughout · action types brought to life
+     (each type has its own living treatment + accent colour) ·
+     cause-matched CLUB recommendations woven down the page to
+     drive the Premier funnel. Gradient reserved for Premier moments.
+     =========================================================== */
+  :root{
+    --pg:linear-gradient(90deg,#F9A907 20%,#FE20B0 54%,#7C01FF 92%);
+    --pg-btn:linear-gradient(90deg,#FF8400 20%,#FE20B0 54%,#7C01FF 92%);
+    --pink:#FE20B0; --ink:#0b0a10;
+    --text:#15132b; --muted:#57546b; --dim:#8a8798; --line:rgba(20,16,48,0.12); --line-strong:rgba(20,16,48,0.22);
+    --paper:#fbfafc;
+    /* per-action-type accents */
+    --t-petition:#0b0a10; --t-pledge:#16A34A; --t-watch:#7c01ff; --t-survey:#0284C7; --t-quiz:#F9A907; --t-learn:#0891B2; --t-share:#FE20B0; --t-discover:#3939c9;
+    --font-display:'Oswald',Impact,sans-serif; --font-body:'Inter',-apple-system,sans-serif; --font-mono:'Space Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{overflow-x:hidden;background:var(--paper);color:var(--text);font-family:var(--font-body);-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;} img{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  .mono{font-family:var(--font-mono);letter-spacing:0.14em;text-transform:uppercase;}
+  .pts{font-family:var(--font-mono);font-weight:700;font-size:12px;letter-spacing:0.04em;color:var(--pink);}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;border-radius:999px;font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;border:2px solid transparent;transition:transform .16s ease,box-shadow .16s ease,background .16s,color .16s;}
+  .arr{font-family:var(--font-mono);font-size:1.3em;display:inline-block;line-height:1;vertical-align:middle;}
+  .btn-ink{background:var(--ink);color:#fff;} .btn-ink:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(11,10,16,0.26);}
+  .btn-light{background:#fff;color:var(--ink);} .btn-light:hover{transform:translateY(-1px);}
+  .btn-grad{color:#fff;border-color:transparent;background-image:linear-gradient(var(--ink),var(--ink)),var(--pg-btn);background-origin:border-box;background-clip:padding-box,border-box;background-repeat:no-repeat;}
+  .btn-grad:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(254,32,176,0.3);}
+
+  /* header */
+  header.top{background:var(--ink);color:#fff;position:relative;z-index:60;}
+  header.top .bar{max-width:1180px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .brand-logo{height:28px;width:auto;}
+  nav.main{display:flex;gap:2px;}
+  nav.main a{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);padding:9px 10px;border-radius:999px;transition:color .15s,background .15s;}
+  nav.main a:hover,nav.main a.on{color:#fff;background:rgba(255,255,255,0.08);}
+  header .right{display:flex;align-items:center;gap:14px;}
+  header .pts-pill{font-family:var(--font-mono);font-size:12px;letter-spacing:0.08em;color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.2);border-radius:999px;padding:7px 14px;}
+
+  /* hero */
+  .hero{padding:54px 0 26px;}
+  .hero .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);}
+  .hero h1{font-family:var(--font-display);font-size:clamp(44px,7vw,88px);font-weight:700;line-height:0.98;letter-spacing:-0.01em;text-transform:uppercase;margin:12px 0 0;}
+  .hero h1 .pink{color:var(--pink);}
+  .hero .lead{margin:18px 0 0;max-width:560px;font-size:16px;line-height:1.55;color:var(--muted);}
+  .hero .facts{margin-top:16px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--dim);}
+  .hero .facts b{color:var(--ink);}
+
+  /* ---------- HERO header feature (full-bleed, image-led) ---------- */
+  .herofeat{position:relative;min-height:clamp(480px,64vh,640px);display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:var(--ink);}
+  .herofeat > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .herofeat .scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,10,16,0.94) 0%,rgba(11,10,16,0.45) 46%,rgba(11,10,16,0.32) 100%);}
+  .herofeat .glow{position:absolute;inset:0;background:radial-gradient(60% 100% at 82% 12%,rgba(254,32,176,0.22),transparent 58%);pointer-events:none;}
+  .herofeat .hf{position:relative;padding-top:56px;padding-bottom:clamp(42px,6vh,74px);width:100%;}
+  .herofeat .fpill{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.28);border-radius:999px;padding:7px 13px;backdrop-filter:blur(6px);}
+  .herofeat .fpill .dot{width:7px;height:7px;border-radius:999px;background:var(--pink);box-shadow:0 0 0 4px rgba(254,32,176,0.25);}
+  .herofeat h1{font-family:var(--font-display);font-size:clamp(50px,8.4vw,112px);font-weight:700;line-height:0.94;letter-spacing:-0.01em;text-transform:uppercase;margin:18px 0 0;}
+  .herofeat h1 .pink{color:var(--pink);}
+  .herofeat .lead{margin:20px 0 0;max-width:580px;font-size:16.5px;line-height:1.55;color:rgba(255,255,255,0.88);}
+  .herofeat .facts{margin-top:18px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.62);}
+  .herofeat .facts b{color:#fff;}
+  .herofeat .hf-cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;}
+  .btn-ghostlight{background:transparent;color:#fff;border-color:rgba(255,255,255,0.5);}
+  .btn-ghostlight:hover{background:rgba(255,255,255,0.1);border-color:#fff;transform:translateY(-1px);}
+  /* featured-action hero extras */
+  .herofeat .kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.72);}
+  .herofeat .hf-type{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#fff;background:var(--acc);border-radius:999px;padding:7px 14px;box-shadow:0 6px 18px rgba(11,10,16,0.35);}
+  [data-ftype="quiz"] .hf-type,[data-ftype="quiz"] .ftag,.acard.t-quiz .atag{color:var(--ink);}
+  .herofeat .hf-type .tico{width:15px;height:15px;flex:0 0 auto;}
+  .herofeat h1.action{font-size:clamp(38px,6vw,78px);line-height:0.98;max-width:18ch;margin-top:16px;}
+  .herofeat .hf-meta{margin-top:16px;font-family:var(--font-mono);font-size:12px;letter-spacing:0.04em;color:rgba(255,255,255,0.86);}
+  .herofeat .hf-cta{align-items:center;}
+  .herofeat .hf-pts{font-family:var(--font-mono);font-weight:700;font-size:15px;color:#fff;}
+
+  /* value-prop bar (framing for first-timers) */
+  .vbar{background:var(--paper);border-bottom:1px solid var(--line);}
+  .vbar .in{max-width:1180px;margin:0 auto;padding:26px 24px;display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;}
+  .vbar h2{font-family:var(--font-display);font-weight:700;text-transform:uppercase;font-size:clamp(22px,3vw,34px);line-height:1.04;letter-spacing:-0.01em;}
+  .vbar h2 .pink{color:var(--pink);}
+  .vbar p{font-size:15px;line-height:1.56;color:var(--muted);max-width:74ch;}
+
+  /* rewards band (why earn points) */
+  .rgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .rtile{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;display:flex;align-items:flex-end;color:#fff;box-shadow:0 16px 40px rgba(20,16,48,0.14);}
+  .rtile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .rtile:hover img{transform:scale(1.05);}
+  .rtile .rscrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,10,16,0.9) 0%,rgba(11,10,16,0.28) 52%,rgba(11,10,16,0.05) 100%);}
+  .rtile .rb{position:relative;padding:16px;width:100%;}
+  .rtile .rtag{display:inline-block;font-family:var(--font-mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;margin-bottom:9px;}
+  .rtile .rtag.win{background:#fff;color:var(--ink);}
+  .rtile .rtag.prem{color:#fff;background-image:linear-gradient(var(--ink),var(--ink)),var(--pg);background-origin:border-box;background-clip:padding-box,border-box;border:1.5px solid transparent;}
+  .rtile h3{font-family:var(--font-display);font-size:18px;font-weight:600;text-transform:uppercase;line-height:1.1;letter-spacing:-0.005em;}
+  .rtile .rpts{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.04em;color:rgba(255,255,255,0.82);margin-top:6px;}
+  /* branded product tile (transparent-bg product PNG on brand colours) */
+  .rtile.brand{background:radial-gradient(135% 95% at 50% 6%,#ffe483 0%,#fed107 46%,#f2ab00 74%,#0d5640 128%);}
+  .rtile.brand > img{object-fit:contain;object-position:center top;padding:18px 20px 64px;filter:drop-shadow(0 16px 26px rgba(0,0,0,0.28));}
+  .rtile.brand .rscrim{background:linear-gradient(to top,rgba(9,58,42,0.98) 0%,rgba(9,58,42,0.7) 14%,rgba(9,58,42,0) 30%);}
+
+  /* full-width club feature (big artist photo) */
+  .clubfeat{position:relative;width:100vw;margin-left:calc(50% - 50vw);min-height:clamp(440px,58vh,580px);display:flex;align-items:center;color:#fff;overflow:hidden;background:var(--ink);margin-top:20px;}
+  .clubfeat > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;}
+  .clubfeat .cscrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,10,16,0.92) 0%,rgba(11,10,16,0.66) 40%,rgba(11,10,16,0.15) 100%);}
+  .clubfeat .cf{position:relative;max-width:1180px;margin:0 auto;padding:48px 24px;width:100%;}
+  .clubfeat .crk{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+  .clubfeat h2{font-family:var(--font-display);font-size:clamp(34px,5vw,64px);font-weight:700;text-transform:uppercase;line-height:1.02;letter-spacing:-0.01em;margin:10px 0 6px;}
+  .clubfeat .cpwr{font-size:15px;color:var(--pink);font-weight:700;}
+  .clubfeat p{margin-top:16px;max-width:44ch;font-size:15px;line-height:1.55;color:rgba(255,255,255,0.85);}
+  .clubfeat .cffoot{display:flex;align-items:center;gap:18px;margin-top:24px;flex-wrap:wrap;}
+  .clubfeat .price{font-family:var(--font-mono);font-size:12px;letter-spacing:0.04em;color:rgba(255,255,255,0.72);}
+  .clubfeat .price b{color:#fff;}
+
+  @media(max-width:760px){ .vbar .in{grid-template-columns:1fr;gap:10px;} .rgrid{grid-template-columns:repeat(2,1fr);} }
+
+  section{padding-top:44px;}
+  .sec-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:16px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;}
+
+  /* ---------- BIG editorial feature (type brought to life at scale) ---------- */
+  .bigfeat{position:relative;border-radius:24px;overflow:hidden;min-height:480px;display:flex;align-items:flex-end;color:#fff;box-shadow:0 30px 64px rgba(20,16,48,0.18);margin-bottom:20px;}
+  .bigfeat > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+  .bigfeat:hover > img{transform:scale(1.04);}
+  .bigfeat .scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,10,16,0.9) 0%,rgba(11,10,16,0.3) 52%,rgba(11,10,16,0.08) 100%);}
+  .bigfeat .fb{position:relative;padding:40px;width:100%;max-width:760px;}
+  .ftag{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#fff;background:var(--acc,rgba(255,255,255,0.2));border-radius:999px;padding:7px 13px;}
+  .bigfeat h3{font-family:var(--font-display);font-size:clamp(30px,4.4vw,52px);font-weight:700;text-transform:uppercase;line-height:1.06;letter-spacing:-0.01em;margin:16px 0 10px;}
+  .bigfeat p{font-size:15px;line-height:1.5;color:rgba(255,255,255,0.88);max-width:46ch;}
+  .bigfeat .frow{display:flex;align-items:center;gap:18px;margin-top:22px;flex-wrap:wrap;}
+  .bigfeat .fpts{font-family:var(--font-mono);font-weight:700;font-size:14px;color:#fff;}
+  .bigfeat .fpts b{color:#fff;}
+  /* watch feature — center play */
+  .bigfeat .playbig{position:absolute;top:28%;right:8%;transform:translateY(-50%);width:84px;height:84px;border-radius:999px;background:rgba(255,255,255,0.16);border:2px solid rgba(255,255,255,0.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:3;transition:transform .16s,background .16s;}
+  .bigfeat:hover .playbig{background:rgba(255,255,255,0.28);}
+  .bigfeat .playbig svg{width:30px;height:30px;margin-left:4px;}
+  /* petition feature — signature progress */
+  .fprog{margin-top:20px;max-width:420px;}
+  .fprog .bar{height:10px;border-radius:999px;background:rgba(255,255,255,0.22);overflow:hidden;}
+  .fprog .bar > i{display:block;height:100%;border-radius:999px;background:#fff;}
+  .fprog .cnt{margin-top:9px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:rgba(255,255,255,0.9);}
+  .fprog .cnt b{color:#fff;}
+  /* quiz feature — question chips */
+  .fquiz{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;}
+  .fquiz span{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,0.4);border-radius:999px;padding:7px 12px;}
+
+  /* ---------- CLUB recommendation band ---------- */
+  .clubrec{display:grid;grid-template-columns:1fr 1.05fr;border-radius:24px;overflow:hidden;background:var(--ink);color:#fff;margin:22px 0;min-height:320px;box-shadow:0 26px 60px rgba(20,16,48,0.16);}
+  .clubrec.rev .crphoto{order:2;}
+  .crphoto{position:relative;min-height:260px;}
+  .crphoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .crphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,10,16,0) 60%,rgba(11,10,16,0.5));}
+  .clubrec.rev .crphoto::after{background:linear-gradient(270deg,rgba(11,10,16,0) 60%,rgba(11,10,16,0.5));}
+  .crbody{padding:42px 40px;display:flex;flex-direction:column;justify-content:center;position:relative;}
+  .crbody::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 120% at 100% 0%,rgba(254,32,176,0.14),transparent 60%);pointer-events:none;}
+  .crk{position:relative;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.55);}
+  .crbody h3{position:relative;font-family:var(--font-display);font-size:clamp(26px,3.2vw,38px);font-weight:700;text-transform:uppercase;line-height:1.08;letter-spacing:-0.01em;margin:10px 0 6px;}
+  .crpwr{position:relative;font-size:13px;color:var(--pink);font-weight:600;}
+  .crbody p{position:relative;margin-top:14px;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,0.82);max-width:44ch;}
+  .crfoot{position:relative;display:flex;align-items:center;gap:18px;margin-top:22px;flex-wrap:wrap;}
+  .crfoot .price{font-family:var(--font-mono);font-size:12px;letter-spacing:0.04em;color:rgba(255,255,255,0.7);}
+  .crfoot .price b{color:#fff;}
+
+  /* ---------- filter / sort bar ---------- */
+  .filterbar{position:sticky;top:0;z-index:50;background:rgba(251,250,252,0.94);backdrop-filter:blur(10px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .filterbar .row{display:flex;gap:8px;overflow-x:auto;padding:14px 24px 8px;max-width:1180px;margin:0 auto;-webkit-overflow-scrolling:touch;}
+  .filterbar .row::-webkit-scrollbar{display:none;}
+  .chip{flex:0 0 auto;font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);background:#fff;border:1px solid var(--line-strong);border-radius:999px;padding:10px 16px;cursor:pointer;transition:all .14s;white-space:nowrap;}
+  .chip:hover{border-color:var(--ink);color:var(--ink);}
+  .chip.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;max-width:1180px;margin:0 auto;padding:0 24px 14px;}
+  .types{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex:1 1 auto;min-width:0;}
+  .types::-webkit-scrollbar{display:none;}
+  .tchip{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer;transition:all .14s;white-space:nowrap;}
+  .tchip .dot{width:8px;height:8px;border-radius:999px;background:var(--tc,var(--dim));}
+  .tchip:hover{border-color:var(--ink);color:var(--ink);}
+  .tchip.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .sortwrap{display:flex;align-items:center;gap:14px;flex:0 0 auto;}
+  .count{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);white-space:nowrap;}
+  .sortlbl{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:8px;white-space:nowrap;}
+  .sortlbl select{font-family:var(--font-mono);font-size:11px;color:var(--ink);background:#fff;border:1px solid var(--line-strong);border-radius:999px;padding:8px 12px;cursor:pointer;text-transform:uppercase;letter-spacing:0.05em;}
+  /* search box */
+  .searchbox{position:relative;flex:0 1 220px;min-width:150px;display:flex;align-items:center;}
+  .searchbox svg{position:absolute;left:13px;width:15px;height:15px;color:var(--dim);pointer-events:none;}
+  .searchbox input{width:100%;height:38px;border:1px solid var(--line-strong);border-radius:999px;background:#fff;padding:0 14px 0 34px;font-family:var(--font-body);font-size:13px;color:var(--ink);outline:none;transition:border-color .15s;}
+  .searchbox input:focus{border-color:var(--ink);}
+  .searchbox input::placeholder{color:var(--dim);}
+  /* premier 2x preview toggle */
+  .pvtoggle{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);background:none;border:0;cursor:pointer;white-space:nowrap;}
+  .pvtoggle .sw{position:relative;width:40px;height:23px;border-radius:999px;border:1.5px solid var(--line-strong);background:#fff;transition:background .16s,border-color .16s;flex:0 0 auto;}
+  .pvtoggle .sw::after{content:"";position:absolute;left:2px;top:1.5px;width:16px;height:16px;border-radius:50%;background:var(--ink);transition:transform .16s,background .16s;}
+  .pvtoggle[aria-pressed="true"]{color:var(--ink);}
+  .pvtoggle[aria-pressed="true"] .sw{background-image:var(--pg);border-color:transparent;}
+  .pvtoggle[aria-pressed="true"] .sw::after{transform:translateX(17px);background:#fff;}
+  /* doubled points marker on cards */
+  .ptswrap{display:inline-flex;align-items:center;gap:7px;}
+  .x2{display:none;font-family:var(--font-mono);font-weight:700;font-size:9px;letter-spacing:0.06em;color:#fff;border-radius:999px;padding:2px 6px;background-image:var(--pg);}
+  #grid.preview2x .x2{display:inline-flex;}
+
+  /* ---------- type-alive action grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .acard{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .16s ease,box-shadow .16s ease,border-color .16s;border-top:3px solid var(--acc);}
+  .acard:hover{transform:translateY(-4px);box-shadow:0 22px 50px rgba(20,16,48,0.14);border-color:var(--line-strong);}
+  .acard .amedia{position:relative;aspect-ratio:16/11;overflow:hidden;}
+  .acard .amedia img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .acard:hover .amedia img{transform:scale(1.05);}
+  .atag{position:absolute;top:12px;left:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-weight:700;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#fff;background:var(--acc);border-radius:999px;padding:6px 11px 6px 9px;box-shadow:0 4px 14px rgba(11,10,16,0.3);}
+  .atag .tico{width:14px;height:14px;flex:0 0 auto;}
+  .ftag .tico{width:15px;height:15px;flex:0 0 auto;}
+  .tchip .tico{width:13px;height:13px;flex:0 0 auto;color:var(--tc);}
+  .tchip.on .tico{color:#fff;}
+  .acard .playbtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:52px;height:52px;border-radius:999px;background:rgba(11,10,16,0.42);border:2px solid rgba(255,255,255,0.85);display:flex;align-items:center;justify-content:center;}
+  .acard .playbtn svg{width:18px;height:18px;margin-left:2px;fill:#fff;}
+  .acard .dur{position:absolute;bottom:12px;right:12px;z-index:2;font-family:var(--font-mono);font-size:10px;letter-spacing:0.04em;color:#fff;background:rgba(11,10,16,0.6);border-radius:6px;padding:3px 8px;}
+  .acard .abody{padding:16px 16px 18px;display:flex;flex-direction:column;flex:1;}
+  .acard h3{font-family:var(--font-display);font-size:19px;font-weight:600;text-transform:uppercase;letter-spacing:-0.005em;line-height:1.12;}
+  .acard p{font-size:13px;line-height:1.48;color:var(--muted);margin-top:6px;}
+  /* type micro-UI */
+  .micro{margin-top:12px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.04em;color:var(--acc);display:flex;align-items:center;gap:7px;}
+  .micro .ic{font-weight:700;}
+  .prog{margin-top:12px;height:7px;border-radius:999px;background:rgba(20,16,48,0.1);overflow:hidden;}
+  .prog > i{display:block;height:100%;border-radius:999px;background:var(--acc);}
+  .prog + .micro{margin-top:8px;}
+  .pollbars{margin-top:12px;display:flex;flex-direction:column;gap:4px;}
+  .pollbars i{height:6px;border-radius:999px;background:var(--acc);opacity:.75;}
+  .pollbars + .micro{margin-top:8px;}
+  .acard .afoot{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);}
+  .acard .take{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);border-bottom:2px solid var(--acc);padding-bottom:2px;}
+  .empty{display:none;text-align:center;color:var(--dim);font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;padding:40px 0;}
+  /* full-width feature banners woven into the grid to break the monotony */
+  .gfeat{grid-column:1/-1;position:relative;min-height:340px;border-radius:22px;overflow:hidden;display:flex;align-items:center;color:#fff;box-shadow:0 24px 54px rgba(20,16,48,0.18);background:var(--ink);}
+  .gfeat > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+  .gfeat:hover > img{transform:scale(1.04);}
+  .gfeat .gscrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,10,16,0.92) 0%,rgba(11,10,16,0.55) 46%,rgba(11,10,16,0.14) 100%);}
+  .gfeat .gb{position:relative;padding:38px 42px;max-width:640px;}
+  .gfeat .gk{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.7);}
+  .gfeat h3{font-family:var(--font-display);font-weight:700;text-transform:uppercase;font-size:clamp(26px,3.4vw,44px);line-height:1.06;letter-spacing:-0.01em;margin:10px 0 8px;}
+  .gfeat p{font-size:14.5px;line-height:1.5;color:rgba(255,255,255,0.86);max-width:46ch;}
+  .gfeat .btn{margin-top:20px;}
+  .gfeat .g{background:var(--pg);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .gfeat.premier::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 130% at 90% 8%,rgba(254,32,176,0.24),transparent 55%),radial-gradient(60% 120% at 6% 96%,rgba(124,1,255,0.22),transparent 58%);}
+  .gfeat.stat::before{content:"";position:absolute;inset:0;background:radial-gradient(62% 120% at 12% 16%,rgba(249,169,7,0.20),transparent 55%),radial-gradient(58% 120% at 92% 94%,rgba(124,1,255,0.26),transparent 58%);}
+  .gfeat.stat .gb{max-width:760px;}
+  .gfeat.stat h3{font-size:clamp(32px,4.6vw,56px);}
+  @media(max-width:560px){ .gfeat .gb{padding:28px 24px;} .gfeat{min-height:300px;} }
+
+  /* ---------- clubs you might vibe with ---------- */
+  .clubwall{margin-top:64px;}
+  .clubwall .sec-label .hl{color:var(--pink);}
+  .clubgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .club{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .16s ease,box-shadow .16s ease;}
+  .club:hover{transform:translateY(-4px);box-shadow:0 20px 46px rgba(20,16,48,0.13);}
+  .club .cimg{aspect-ratio:16/10;overflow:hidden;}
+  .club .cimg img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .club:hover .cimg img{transform:scale(1.05);}
+  .club .cbody{padding:16px 16px 18px;}
+  .club h3{font-family:var(--font-display);font-size:19px;font-weight:600;text-transform:uppercase;line-height:1.1;letter-spacing:-0.005em;}
+  .club .cby{font-size:12.5px;color:var(--muted);margin-top:5px;}
+  .club .cfoot{display:flex;align-items:center;justify-content:space-between;margin-top:14px;}
+  .club .price{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--dim);}
+  .club .price b{color:var(--ink);}
+  .club .join{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);border-bottom:2px solid var(--pink);padding-bottom:2px;}
+
+  /* ---------- Premier band ---------- */
+  .premier{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-top:64px;background:var(--ink);color:#fff;overflow:hidden;}
+  .premier::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 130% at 88% 6%,rgba(254,32,176,0.22),transparent 55%),radial-gradient(60% 120% at 8% 96%,rgba(124,1,255,0.2),transparent 58%);}
+  .premier .inner{position:relative;max-width:1180px;margin:0 auto;padding:56px 24px;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center;}
+  .premier .k{font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.55);}
+  .premier h2{font-family:var(--font-display);font-size:clamp(26px,3.4vw,42px);font-weight:700;text-transform:uppercase;line-height:1.06;letter-spacing:-0.01em;margin:10px 0 10px;}
+  .premier h2 .g{background:var(--pg);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .premier p{color:rgba(255,255,255,0.82);font-size:15px;line-height:1.6;max-width:52ch;}
+  .premier .price{margin-top:14px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+
+  footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:44px 24px 56px;text-align:center;}
+  footer .pmark img{height:24px;width:auto;margin-bottom:22px;}
+  footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 22px;}
+  footer nav a{font-family:var(--font-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+  footer nav a:hover{color:#fff;}
+  footer .copy{margin-top:24px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+
+  @media(max-width:900px){
+    .grid,.clubgrid{grid-template-columns:repeat(2,1fr);}
+    .clubrec{grid-template-columns:1fr;} .clubrec.rev .crphoto{order:0;} .crphoto{min-height:220px;}
+    .premier .inner{grid-template-columns:1fr;}
+    nav.main{display:none;} header.top .bar{justify-content:center;position:relative;} header .right{position:absolute;right:24px;top:50%;transform:translateY(-50%);}
+  }
+  @media(max-width:560px){ .grid,.clubgrid{grid-template-columns:1fr;} .bigfeat{min-height:420px;} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="bar">
+    <a href="home-simple.html" aria-label="Propeller"><img class="brand-logo" src="assets/propeller-logo.svg" alt="Propeller" /></a>
+    <nav class="main"><a href="earn-points.html" class="on">Earn Points</a><a href="rewards.html">Rewards</a><a href="clubs.html">Clubs</a><a href="dashboard.html">Impact</a><a href="how-it-works-v2.html">How It Works</a><a href="winners.html">Winners</a><a href="about.html">About Us</a><a href="premier.html">Premier</a></nav>
+    <div class="right"><span class="pts-pill">0 pts</span></div>
+  </div>
+</header>
+
+<!-- HERO = FEATURED ACTION (full-bleed) -->
+<section class="herofeat" data-ftype="pledge" style="--acc:var(--t-pledge)">
+  <img src="https://loremflickr.com/1600/900/portrait,mentalhealth,candid?lock=210" alt="Featured action" />
+  <div class="scrim"></div>
+  <div class="glow"></div>
+  <div class="wrap hf">
+    <div class="kicker">Featured this week</div>
+    <h1 class="action">Pledge to end the mental-health stigma</h1>
+    <p class="lead">Add your name to #BreakTheBarriers and stand with millions making support the norm, not the exception.</p>
+    <div class="hf-meta">✓ 18,402 people have already pledged</div>
+    <div class="hf-cta"><a class="btn btn-light" href="action.html?type=pledge&title=Pledge%20to%20end%20the%20mental-health%20stigma&cause=Mental%20Health&pts=100&pledged=18402">Take the pledge</a><span class="hf-pts">+100 pts</span></div>
+  </div>
+</section>
+
+<!-- value-prop bar (framing) -->
+<section class="vbar">
+  <div class="in">
+    <h2>Do good stuff.<br>Earn <span class="pink">points.</span></h2>
+    <p>Sign, pledge, watch, learn, and share for the causes you care about. Every action supports a real nonprofit - and earns points toward rewards and once-in-a-lifetime experiences.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <!-- ============ REWARDS: why earn points ============ -->
+  <section class="rewards">
+    <div class="sec-label"><span>What your points get you</span><span class="mono" style="font-size:10px;color:var(--dim);">Enter free · redeem with Premier</span></div>
+    <div class="rgrid">
+      <a class="rtile" href="#"><img src="assets/winners/gorge26_0.jpg" alt="Meet your favorite artist" /><div class="rscrim"></div><div class="rb"><span class="rtag win">Enter to win</span><h3>Meet your favorite artist</h3><div class="rpts">Free · every action = entries</div></div></a>
+      <a class="rtile" href="#"><img src="assets/rewards/concert.jpg" alt="Concert tickets" /><div class="rscrim"></div><div class="rb"><span class="rtag prem">Premier</span><h3>Concert tickets</h3><div class="rpts">Redeem from 5,000 pts</div></div></a>
+      <a class="rtile brand" href="#"><img src="assets/rewards/ym_revel_berry.png" alt="Yerba Madre" /><div class="rscrim"></div><div class="rb"><span class="rtag prem">Premier</span><h3>Yerba Madre</h3><div class="rpts">Redeem from 1,500 pts</div></div></a>
+      <a class="rtile" href="#"><img src="assets/winners/eforest26_2.jpg" alt="Festival flyaway" /><div class="rscrim"></div><div class="rb"><span class="rtag win">Enter to win</span><h3>Festival flyaway</h3><div class="rpts">Free · every action = entries</div></div></a>
+    </div>
+  </section>
+
+  <!-- Premier 2X band — surfaced early as the key motivator -->
+  <div class="premier">
+    <div class="inner">
+      <div>
+        <div class="k">Not Premier yet?</div>
+        <h2>Every action is worth <span class="g">2X</span> with Premier.</h2>
+        <p>Your points get you sweepstakes entries for free. Go Premier to double every action, redeem points for real rewards and tickets, and back a cause every month.</p>
+        <div class="price">Join a club · from $11/mo · cancel anytime</div>
+      </div>
+      <div><a class="btn btn-grad" href="#">Go Premier</a></div>
+    </div>
+  </div>
+
+  <!-- ============ FEATURED ACTIONS ============ -->
+  <!-- FEATURE · WATCH -->
+  <section>
+    <div class="sec-label"><span>More ways to earn</span><span class="mono" style="font-size:10px;color:var(--dim);">Big moments, big points</span></div>
+    <a class="bigfeat" href="action.html?type=watch&title=Watch%3A%20why%20live%20music%20matters&cause=Music%20%26%20Arts&pts=50&dur=3:12" data-ftype="watch" style="--acc:var(--t-watch)">
+      <img src="https://loremflickr.com/1400/720/concert,stage,lights?lock=201" alt="Why live music matters" />
+      <div class="scrim"></div>
+      <span class="playbig"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5 L20 12 L8 19 Z"/></svg></span>
+      <div class="fb">
+        <span class="ftag">Watch · 2 min</span>
+        <h3>Watch: why live music matters</h3>
+        <p>Three minutes on the rooms, the crews, and the magic worth protecting. Press play, earn points.</p>
+        <div class="frow"><span class="fpts">+50 PTS</span><span class="btn btn-light">Watch &amp; earn <span class="arr">→</span></span></div>
+      </div>
+    </a>
+  </section>
+
+  <!-- FEATURE 2 · PETITION (live signature progress) -->
+  <section style="padding-top:22px">
+    <a class="bigfeat" href="action.html?type=petition&title=Protect%20the%20freedom%20to%20vote&cause=Civic&pts=100&signed=847392&goal=1000000" data-ftype="petition" style="--acc:var(--t-petition)">
+      <img src="https://loremflickr.com/1400/720/vote,ballot,flag?lock=202" alt="Protect the freedom to vote" />
+      <div class="scrim"></div>
+      <div class="fb">
+        <span class="ftag">Petition · Civic</span>
+        <h3>Protect the freedom to vote</h3>
+        <p>Stand up for fair, accessible elections in every state. Add your name to the wall.</p>
+        <div class="fprog">
+          <div class="bar"><i style="width:84%"></i></div>
+          <div class="cnt"><b>847,392</b> of 1,000,000 signatures</div>
+        </div>
+        <div class="frow"><span class="fpts">+100 PTS</span><span class="btn btn-light">Add your name <span class="arr">→</span></span></div>
+      </div>
+    </a>
+  </section>
+
+  <!-- FULL-WIDTH CLUB FEATURE · Busyhead / Noah Kahan (big artist photo) -->
+</div>
+<section class="clubfeat">
+  <img src="assets/noah/noah_59877.avif" alt="Noah Kahan" />
+  <div class="cscrim"></div>
+  <div class="cf">
+    <div class="crk">Recommended club · Mental Health</div>
+    <h2>The Busyhead<br>Project</h2>
+    <div class="cpwr">Powered by Noah Kahan</div>
+    <p>Love the mental-health actions? This is the club behind them. Premier members back the cause every month - and earn 2X on everything they do.</p>
+    <div class="cffoot"><a class="btn btn-grad" href="#">Join this club</a><span class="price">From <b>$11</b>/mo · cancel anytime</span></div>
+  </div>
+</section>
+<div class="wrap">
+
+  <!-- FEATURE 3 · QUIZ -->
+  <section style="padding-top:22px">
+    <a class="bigfeat" href="action.html?type=quiz&title=Take%20the%20Climate%20Revolution%20quiz&cause=Environment&pts=75&qs=5&min=2" data-ftype="quiz" style="--acc:var(--t-quiz)">
+      <img src="https://loremflickr.com/1400/720/windturbine,green,sky?lock=203" alt="Climate Revolution quiz" />
+      <div class="scrim"></div>
+      <div class="fb">
+        <span class="ftag">Quiz · Climate</span>
+        <h3>Take the Climate Revolution quiz</h3>
+        <p>Real facts, two minutes, see how the movement is changing everything.</p>
+        <div class="fquiz"><span>5 questions</span><span>≈ 2 min</span><span>Instant score</span></div>
+        <div class="frow"><span class="fpts">+75 PTS</span><span class="btn btn-light">Start the quiz <span class="arr">→</span></span></div>
+      </div>
+    </a>
+  </section>
+
+  <!-- ============ BROWSE: type-alive, sortable ============ -->
+  <section id="browse">
+    <div class="sec-label"><span>Browse every action</span><span class="mono" style="font-size:10px;color:var(--dim);">Pick a cause. Pick a type. Stack points.</span></div>
+  </section>
+</div>
+
+<!-- sticky filter bar (full width) -->
+<div class="filterbar">
+  <div class="row" id="filters">
+    <button class="chip on" data-cat="all">All causes</button>
+    <button class="chip" data-cat="mental">Mental Health</button>
+    <button class="chip" data-cat="environment">Environment</button>
+    <button class="chip" data-cat="equality">Equality</button>
+    <button class="chip" data-cat="democracy">Civic</button>
+    <button class="chip" data-cat="music">Music &amp; Arts</button>
+    <button class="chip" data-cat="wellness">Wellness</button>
+    <button class="chip" data-cat="education">Education</button>
+  </div>
+  <div class="controls">
+    <label class="searchbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+      <input type="search" id="search" placeholder="Search actions" aria-label="Search actions" />
+    </label>
+    <div class="types" id="types">
+      <button class="tchip on" data-type="all">All types</button>
+      <button class="tchip" data-type="petition" style="--tc:var(--t-petition)"><span class="dot"></span>Petition</button>
+      <button class="tchip" data-type="pledge" style="--tc:var(--t-pledge)"><span class="dot"></span>Pledge</button>
+      <button class="tchip" data-type="watch" style="--tc:var(--t-watch)"><span class="dot"></span>Watch</button>
+      <button class="tchip" data-type="survey" style="--tc:var(--t-survey)"><span class="dot"></span>Survey</button>
+      <button class="tchip" data-type="quiz" style="--tc:var(--t-quiz)"><span class="dot"></span>Quiz</button>
+      <button class="tchip" data-type="learn" style="--tc:var(--t-learn)"><span class="dot"></span>Learn</button>
+      <button class="tchip" data-type="share" style="--tc:var(--t-share)"><span class="dot"></span>Share</button>
+      <button class="tchip" data-type="discover" style="--tc:var(--t-discover)"><span class="dot"></span>Discover</button>
+    </div>
+    <div class="sortwrap">
+      <button class="pvtoggle" id="pv" type="button" aria-pressed="false" title="See every action's points doubled with Premier"><span class="sw"></span>Preview Premier 2X</button>
+      <span class="count" id="count">actions</span>
+      <label class="sortlbl">Sort
+        <select id="sort">
+          <option value="feat">Featured</option>
+          <option value="hi">Points: high → low</option>
+          <option value="lo">Points: low → high</option>
+          <option value="az">Type A–Z</option>
+        </select>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section style="padding-top:24px">
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty">No actions match those filters - try another cause or type.</div>
+  </section>
+
+  <!-- clubs you might vibe with -->
+  <section class="clubwall">
+    <div class="sec-label"><span>Clubs you might <span class="hl">vibe with</span></span><span class="mono" style="font-size:10px;color:var(--dim);">Go Premier · back a cause monthly</span></div>
+    <div class="clubgrid">
+      <a class="club" href="#"><div class="cimg"><img src="https://www.propeller.la/cdn-cgi/image/fit=scale-down,width=800,format=auto,quality=60/files/lof-card001_61398.jpg" alt="Looking Out Foundation" /></div><div class="cbody"><h3>Looking Out Foundation</h3><div class="cby">Powered by Brandi Carlile</div><div class="cfoot"><span class="price">From <b>$11</b>/mo</span><span class="join">Join <span class="arr">→</span></span></div></div></a>
+      <a class="club" href="#"><div class="cimg"><img src="https://www.propeller.la/cdn-cgi/image/fit=scale-down,width=800,format=auto,quality=60/files/csg001_62732.jpg" alt="Camp Southern Ground" /></div><div class="cbody"><h3>Camp Southern Ground</h3><div class="cby">Powered by Zac Brown Band</div><div class="cfoot"><span class="price">From <b>$11</b>/mo</span><span class="join">Join <span class="arr">→</span></span></div></div></a>
+      <a class="club" href="#"><div class="cimg"><img src="https://www.propeller.la/cdn-cgi/image/fit=scale-down,width=800,format=auto,quality=60/files/tac001_63253.jpg" alt="The Ally Coalition" /></div><div class="cbody"><h3>The Ally Coalition</h3><div class="cby">LGBTQ+ Equality</div><div class="cfoot"><span class="price">From <b>$11</b>/mo</span><span class="join">Join <span class="arr">→</span></span></div></div></a>
+      <a class="club" href="#"><div class="cimg"><img src="https://www.propeller.la/cdn-cgi/image/fit=scale-down,width=800,format=auto,quality=60/files/fcml_card001_29776.jpg" alt="Frances Changed My Life" /></div><div class="cbody"><h3>Frances Changed My Life</h3><div class="cby">Powered by Portugal. The Man</div><div class="cfoot"><span class="price">From <b>$11</b>/mo</span><span class="join">Join <span class="arr">→</span></span></div></div></a>
+      <a class="club" href="#"><div class="cimg"><img src="https://www.propeller.la/cdn-cgi/image/fit=scale-down,width=800,format=auto,quality=60/files/jpeg-optimizer_sound-future-card001_63597.jpg" alt="Sound Future" /></div><div class="cbody"><h3>Sound Future</h3><div class="cby">Climate &amp; Live Events</div><div class="cfoot"><span class="price">From <b>$11</b>/mo</span><span class="join">Join <span class="arr">→</span></span></div></div></a>
+      <a class="club" href="#"><div class="cimg"><img src="https://www.propeller.la/cdn-cgi/image/fit=scale-down,width=800,format=auto,quality=60/files/portal-card-2001_60991.jpg" alt="PORTAL" /></div><div class="cbody"><h3>PORTAL</h3><div class="cby">Psychedelic Healing</div><div class="cfoot"><span class="price">From <b>$11</b>/mo</span><span class="join">Join <span class="arr">→</span></span></div></div></a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="pmark"><img src="assets/propeller-logo.svg" alt="Propeller" /></div>
+  <nav><a href="how-it-works-v2.html">How It Works</a><a href="earn-points.html">Experiences</a><a href="#">Causes</a><a href="earn-points.html">Actions</a><a href="rewards.html">Rewards</a><a href="winners.html">Winner Stories</a><a href="about.html">About Us</a><a href="#">Support</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></nav>
+  <div class="copy">Copyright © 2026 Propeller</div>
+</footer>
+
+<script>
+  // ---- action catalog (rendered from data so filter/sort + per-type UI stay clean) ----
+  const A=[
+    // MENTAL HEALTH
+    {t:'petition',cause:'mental',title:'Fund mental health in schools',blurb:'Put a counselor in every school that needs one.',pts:100,img:'mentalhealth,school',lock:301,signed:512340,goal:750000},
+    {t:'pledge',cause:'mental',title:'Pledge to check in on a friend',blurb:'One text can change someone’s whole week.',pts:75,img:'friends,support',lock:302,pledged:18402},
+    {t:'watch',cause:'mental',title:'Want to be happier? Watch this',blurb:'The science of gratitude, in one short talk.',pts:50,img:'sunrise,calm',lock:303,dur:'2:41'},
+    {t:'survey',cause:'mental',title:'The youth mental health survey',blurb:'Tell researchers what young people actually need.',pts:100,img:'teen,portrait',lock:304,min:2},
+    {t:'learn',cause:'mental',title:'Build a healthier week',blurb:'A quick read on habits that actually stick.',pts:50,img:'reading,journal',lock:305,min:3},
+    // ENVIRONMENT
+    {t:'petition',cause:'environment',title:'Help protect our parks',blurb:'Keep public lands wild, funded, and open.',pts:100,img:'nationalpark,forest',lock:306,signed:689120,goal:1000000},
+    {t:'pledge',cause:'environment',title:'Ditch single-use plastic',blurb:'Small swaps, big ocean. Make the commitment.',pts:75,img:'ocean,plastic',lock:307,pledged:24988},
+    {t:'quiz',cause:'environment',title:'The Climate Revolution quiz',blurb:'Two minutes, real facts, instant score.',pts:75,img:'windturbine,green',lock:308,qs:5,min:2},
+    {t:'watch',cause:'environment',title:'90 seconds on clean energy',blurb:'Where the grid is headed, and how fast.',pts:50,img:'solar,panel',lock:309,dur:'1:32'},
+    {t:'learn',cause:'environment',title:'Where your recycling goes',blurb:'Spoiler: not where you think.',pts:50,img:'recycling,bins',lock:310,min:2},
+    // EQUALITY
+    {t:'petition',cause:'equality',title:'One million voices for equality',blurb:'Add your name to the call for equal rights.',pts:100,img:'pride,march',lock:311,signed:934771,goal:1000000},
+    {t:'pledge',cause:'equality',title:'Support local LGBTQ+ businesses',blurb:'Put your money where your values are.',pts:75,img:'storefront,street',lock:312,pledged:15230},
+    {t:'watch',cause:'equality',title:'Five minutes that change how you see it',blurb:'A short film on the fight for equal rights.',pts:50,img:'documentary,people',lock:313,dur:'5:08'},
+    {t:'survey',cause:'equality',title:'What does equity mean to you?',blurb:'Your answer helps shape where we go next.',pts:100,img:'diverse,hands',lock:314,min:2},
+    {t:'share',cause:'equality',title:'Share the pledge with a friend',blurb:'Movements grow one invite at a time.',pts:25,img:'phone,social',lock:315},
+    // CIVIC
+    {t:'petition',cause:'democracy',title:'Protect the freedom to vote',blurb:'Fair, accessible elections in every state.',pts:100,img:'vote,ballot',lock:316,signed:847392,goal:1000000},
+    {t:'survey',cause:'democracy',title:'A short survey on democracy',blurb:'Tell us what matters most to you.',pts:100,img:'capitol,flag',lock:317,min:2},
+    {t:'quiz',cause:'democracy',title:'How well do you know your rights?',blurb:'Ten questions on the freedoms you use daily.',pts:75,img:'constitution,paper',lock:318,qs:10,min:3},
+    {t:'pledge',cause:'democracy',title:'Pledge to vote in every election',blurb:'Not just the big ones. Down the whole ballot.',pts:75,img:'vote,sticker',lock:319,pledged:41765},
+    {t:'learn',cause:'democracy',title:'Find your polling place',blurb:'Thirty seconds now saves an election-day scramble.',pts:50,img:'map,location',lock:320,min:1},
+    // MUSIC & ARTS
+    {t:'petition',cause:'music',title:'Fair pay for working musicians',blurb:'Back the artists behind the songs.',pts:100,img:'guitar,studio',lock:321,signed:203885,goal:500000},
+    {t:'pledge',cause:'music',title:'Keep music education in schools',blurb:'Every kid deserves an instrument.',pts:75,img:'band,instruments',lock:322,pledged:12481},
+    {t:'watch',cause:'music',title:'Why live music matters',blurb:'The rooms, the crews, the magic worth protecting.',pts:50,img:'stage,lights',lock:323,dur:'3:12'},
+    {t:'survey',cause:'music',title:'Make touring greener',blurb:'Help artists cut the carbon on the road.',pts:100,img:'festival,fans',lock:324,min:2},
+    {t:'share',cause:'music',title:'Shout out an artist doing good',blurb:'Tag a musician backing a cause you love.',pts:25,img:'vinyl,record',lock:325},
+    // WELLNESS
+    {t:'pledge',cause:'wellness',title:'Take the 3-day wellness pledge',blurb:'Small daily habits, real change.',pts:50,img:'yoga,wellness',lock:326,pledged:33190},
+    {t:'quiz',cause:'wellness',title:'What’s your wellness style?',blurb:'Find the routine that fits your life.',pts:75,img:'smoothie,healthy',lock:327,qs:6,min:2},
+    {t:'watch',cause:'wellness',title:'Four minutes of calm',blurb:'A guided reset for a stressful day.',pts:50,img:'nature,breathe',lock:328,dur:'4:00'},
+    // EDUCATION
+    {t:'quiz',cause:'education',title:'Take the Women’s History quiz',blurb:'Test what you know. Learn what you don’t.',pts:75,img:'library,history',lock:329,qs:8,min:3},
+    {t:'petition',cause:'education',title:'Put books back on the shelves',blurb:'Stand against classroom censorship.',pts:100,img:'books,library',lock:330,signed:456009,goal:600000},
+    {t:'discover',cause:'wellness',title:'Discover Yerba Madre',blurb:'Yerba mate culture as an invitation to regeneration.',pts:100,img:'yerbamate,nature',lock:340,min:2,offer:'Back the movement now and earn 2.5x points on every dollar you give.',ppd:'2.5'},
+    {t:'discover',cause:'mental',title:'Discover Mindbloom',blurb:'Real stories from guided at-home ketamine therapy.',pts:50,img:'calm,therapy',lock:341,min:3,offer:'Explore the program yourself and earn 5 points for every $1.',ppd:'5'},
+    {t:'discover',cause:'wellness',title:'Discover Beckley Retreats',blurb:'Evidence-based psychedelic retreats for wellbeing.',pts:100,img:'retreat,mountain',lock:342,min:2},
+    {t:'pledge',cause:'education',title:'Pledge to mentor a student',blurb:'An hour a week can change a trajectory.',pts:75,img:'classroom,teacher',lock:331,pledged:9042},
+    {t:'share',cause:'education',title:'Share a scholarship with someone',blurb:'You might know exactly who needs it.',pts:25,img:'notebook,study',lock:332}
+  ];
+  const TLABEL={petition:'Petition',pledge:'Pledge',watch:'Watch',survey:'Survey',quiz:'Quiz',learn:'Learn',share:'Share',discover:'Discover'};
+  const ICON={
+    petition:'<svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+    pledge:'<svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+    watch:'<svg class="tico" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+    survey:'<svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>',
+    quiz:'<svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M9.4 9.3a2.6 2.6 0 1 1 3.6 2.4c-.9.4-1 .9-1 1.8"/><path d="M12 17.2h.01"/></svg>',
+    learn:'<svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v13"/><path d="M4 5.4A2.4 2.4 0 0 1 6.4 3H12v14H6.4A2.4 2.4 0 0 0 4 19.4Z"/><path d="M20 5.4A2.4 2.4 0 0 0 17.6 3H12v14h5.6a2.4 2.4 0 0 1 2.4 2.4Z"/></svg>',
+    share:'<svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.5 13.4l6.9 4.1M15.4 6.5l-6.9 4.1"/></svg>',
+    discover:'<svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M15.6 8.4l-2.1 5.1-5.1 2.1 2.1-5.1z"/></svg>'
+  };
+  const fmt=n=>n.toLocaleString('en-US');
+
+  function micro(a){
+    switch(a.t){
+      case 'petition':{const p=Math.min(100,Math.round(a.signed/a.goal*100));return `<div class="prog"><i style="width:${p}%"></i></div><div class="micro"><b>${fmt(a.signed)}</b>&nbsp;of ${fmt(a.goal)} signed</div>`;}
+      case 'pledge':return `<div class="micro"><span class="ic">✓</span> ${fmt(a.pledged)} have pledged</div>`;
+      case 'watch':return `<div class="micro"><span class="ic">▶</span> Watch · ${a.dur}</div>`;
+      case 'survey':return `<div class="pollbars"><i style="width:78%"></i><i style="width:52%"></i><i style="width:90%"></i></div><div class="micro">${a.min} min · add your take</div>`;
+      case 'quiz':return `<div class="micro"><span class="ic">?</span> ${a.qs} questions · ${a.min} min</div>`;
+      case 'learn':return `<div class="micro"><span class="ic">–</span> ${a.min} min read</div>`;
+      case 'share':return `<div class="micro"><span class="ic">↪</span> Share · earn a bonus</div>`;
+      case 'discover':return `<div class="micro"><span class="ic">✦</span> Mini-lesson · watch, learn, act</div>`;
+      default:return '';
+    }
+  }
+  function media(a){
+    const src=`https://loremflickr.com/800/560/${a.img}?lock=${a.lock}`;
+    let over='';
+    if(a.t==='watch') over=`<span class="playbtn"><svg viewBox="0 0 24 24"><path d="M8 5 L20 12 L8 19 Z"/></svg></span><span class="dur">${a.dur}</span>`;
+    return `<div class="amedia"><span class="atag">${ICON[a.t]||''}${TLABEL[a.t]}</span>${over}<img src="${src}" alt="${a.title}" loading="lazy" /></div>`;
+  }
+  const CAUSE_LBL={mental:'Mental Health',environment:'Environment',equality:'Equality',democracy:'Civic',music:'Music & Arts',wellness:'Wellness',education:'Education'};
+  function actionHref(a){
+    const p=new URLSearchParams({type:a.t,title:a.title,cause:CAUSE_LBL[a.cause]||a.cause,pts:a.pts,blurb:a.blurb});
+    if(a.signed){p.set('signed',a.signed);p.set('goal',a.goal);}
+    if(a.pledged)p.set('pledged',a.pledged);
+    if(a.dur)p.set('dur',a.dur);
+    if(a.qs)p.set('qs',a.qs);
+    if(a.min)p.set('min',a.min);
+    if(a.offer)p.set('offer',a.offer);
+    if(a.ppd)p.set('ppd',a.ppd);
+    return 'action.html?'+p.toString();
+  }
+  function card(a){
+    const el=document.createElement('a');
+    el.className='acard t-'+a.t; el.href=actionHref(a);
+    el.style.setProperty('--acc','var(--t-'+a.t+')');
+    el.dataset.cause=a.cause; el.dataset.type=a.t; el.dataset.pts=a.pts;
+    el.innerHTML=media(a)+`<div class="abody"><h3>${a.title}</h3><p>${a.blurb}</p>${micro(a)}<div class="afoot"><span class="ptswrap"><span class="pts" data-base="${a.pts}">+${a.pts} pts</span><span class="x2">2X</span></span><span class="take">Take action <span class="arr">→</span></span></div></div>`;
+    return el;
+  }
+
+  (function(){
+    const grid=document.getElementById('grid');
+    const cards=A.map((a,i)=>{const c=card(a);c._i=i;c._pts=a.pts;c._t=a.t;c._cause=a.cause;c._search=(a.title+' '+a.blurb+' '+TLABEL[a.t]+' '+a.cause).toLowerCase();grid.appendChild(c);return c;});
+    const causeChips=[...document.querySelectorAll('#filters .chip')];
+    const typeChips=[...document.querySelectorAll('#types .tchip')];
+    // teach the icon↔type mapping: put the same icon on each filter chip
+    typeChips.forEach(c=>{const t=c.dataset.type;const d=c.querySelector('.dot');if(ICON[t]&&d){const tmp=document.createElement('span');tmp.innerHTML=ICON[t];d.replaceWith(tmp.firstChild);}});
+    // and on the big features + the featured-action hero
+    document.querySelectorAll('.bigfeat[data-ftype]').forEach(f=>{const t=f.dataset.ftype;const tag=f.querySelector('.ftag');if(tag&&ICON[t])tag.insertAdjacentHTML('afterbegin',ICON[t]);});
+    const heroType=document.querySelector('.herofeat[data-ftype] .hf-type');
+    if(heroType){const t=document.querySelector('.herofeat[data-ftype]').dataset.ftype;if(ICON[t])heroType.insertAdjacentHTML('afterbegin',ICON[t]);}
+    const sortSel=document.getElementById('sort');
+    const countEl=document.getElementById('count');
+    const empty=document.getElementById('empty');
+    let cause='all',type='all',search='';
+    // full-width banners woven into the grid to break the monotony
+    const mk=h=>{const t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstChild;};
+    const inters=[
+      mk(`<a class="gfeat" href="#"><img src="assets/rewards/concert.jpg" alt="" loading="lazy"><div class="gscrim"></div><div class="gb"><div class="gk">Every action is an entry</div><h3>Win a once-in-a-lifetime night</h3><p>The points you earn enter you to win concert flyaways, meet &amp; greets, and trips - for free.</p><span class="btn btn-light">See what you could win <span class="arr">→</span></span></div></a>`),
+      mk(`<a class="gfeat" href="#"><img src="assets/winners/orville24_0.jpg" alt="" loading="lazy"><div class="gscrim"></div><div class="gb"><div class="gk">Real winners, every week</div><h3>Next time it's you</h3><p>Every action you take is a free entry to meet your favorite artists and win trips you'll never forget.</p><span class="btn btn-light">See recent winners <span class="arr">→</span></span></div></a>`),
+      mk(`<div class="gfeat premier"><div class="gb"><div class="gk">Not Premier yet?</div><h3>Double every point you earn <span class="g">2X</span></h3><p>Go Premier - join a club, back a cause every month, and unlock redeeming points for real rewards.</p><a class="btn btn-grad" href="#">Go Premier</a></div></div>`),
+      mk(`<div class="gfeat stat"><div class="gb"><div class="gk">Since 2015</div><h3><span class="g">$23M+</span> raised for real causes</h3><p>4M+ people. 15M+ actions. Every one of them backing a verified nonprofit.</p></div></div>`)
+    ];
+    const INTERVAL=7;
+    function apply(){
+      const s=sortSel.value;
+      const vis=cards.filter(c=>(cause==='all'||c._cause===cause)&&(type==='all'||c._t===type)&&(!search||c._search.includes(search)));
+      vis.sort((a,b)=>{
+        if(s==='hi')return b._pts-a._pts;
+        if(s==='lo')return a._pts-b._pts;
+        if(s==='az')return a._t.localeCompare(b._t);
+        return a._i-b._i;
+      });
+      grid.replaceChildren();
+      let ii=0;
+      vis.forEach((c,idx)=>{
+        grid.appendChild(c);
+        if((idx+1)%INTERVAL===0 && idx<vis.length-1 && ii<inters.length) grid.appendChild(inters[ii++]);
+      });
+      countEl.textContent=vis.length+(vis.length===1?' action':' actions');
+      empty.style.display=vis.length?'none':'block';
+    }
+    causeChips.forEach(c=>c.addEventListener('click',()=>{causeChips.forEach(x=>x.classList.remove('on'));c.classList.add('on');cause=c.dataset.cat;apply();}));
+    typeChips.forEach(c=>c.addEventListener('click',()=>{typeChips.forEach(x=>x.classList.remove('on'));c.classList.add('on');type=c.dataset.type;apply();}));
+    sortSel.addEventListener('change',apply);
+    document.getElementById('search').addEventListener('input',e=>{search=e.target.value.trim().toLowerCase();apply();});
+    // Premier 2X preview — redraw every action's points doubled
+    (function(){
+      const pv=document.getElementById('pv');let dbl=false;
+      pv.addEventListener('click',()=>{
+        dbl=!dbl; pv.setAttribute('aria-pressed',String(dbl));
+        grid.classList.toggle('preview2x',dbl);
+        cards.forEach(c=>{const p=c.querySelector('.pts');const b=+p.dataset.base;p.textContent='+'+(dbl?b*2:b)+' pts';});
+      });
+    })();
+    apply();
+  })();
+</script>
+<a href="index.html" data-proto-nav style="position:fixed;left:16px;bottom:16px;z-index:2147483000;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;font:600 12px/1 -apple-system,BlinkMacSystemFont,system-ui,sans-serif;letter-spacing:.02em;color:#fff;background:rgba(18,18,18,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.35)">◱ All screens</a>
+</body>
+</html>

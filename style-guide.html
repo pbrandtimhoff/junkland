@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Propeller — Site Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --pg:linear-gradient(90deg, #F9A907 22%, #FE20B0 54%, #7C01FF 92%);
+    --pg-btn:linear-gradient(90deg, #FF8400 22%, #FE20B0 54%, #7C01FF 92%);
+    --pink:#FE20B0; --ink:#0b0a10;
+    --text:#15132b; --muted:#4a4763; --dim:#6b6880;
+    --line:rgba(20,16,48,0.12); --line-strong:rgba(20,16,48,0.22);
+    --font-display:'Oswald',Impact,sans-serif;
+    --font-body:'Inter',-apple-system,sans-serif;
+    --font-mono:'Space Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#f6f6f9;color:var(--text);font-family:var(--font-body);-webkit-font-smoothing:antialiased;line-height:1.55;}
+  a{color:inherit;}
+  .wrap{max-width:940px;margin:0 auto;padding:0 22px;}
+
+  header.top{background:var(--ink);color:#fff;padding:54px 0 46px;margin-bottom:38px;}
+  header.top .k{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);}
+  header.top h1{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,6vw,68px);line-height:1.03;text-transform:uppercase;letter-spacing:-.015em;margin:16px 0 14px;}
+  header.top p{color:rgba(255,255,255,.75);max-width:62ch;font-size:15px;}
+  .grad{background:var(--pg);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+  section{margin-bottom:44px;}
+  h2{font-family:var(--font-display);font-weight:700;font-size:26px;text-transform:uppercase;letter-spacing:.005em;padding-bottom:12px;border-bottom:2px solid var(--ink);margin-bottom:20px;}
+  h3{font-family:var(--font-display);font-weight:600;font-size:18px;text-transform:uppercase;margin:26px 0 12px;}
+  p.lede{font-size:15px;color:var(--muted);max-width:70ch;margin-bottom:16px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 12px 34px rgba(20,16,48,.06);margin-bottom:14px;}
+
+  code,.mono{font-family:var(--font-mono);font-size:12.5px;background:rgba(20,16,48,.06);padding:2px 7px;border-radius:6px;}
+  pre{font-family:var(--font-mono);font-size:12px;line-height:1.7;background:var(--ink);color:#e9e7f2;padding:16px 18px;border-radius:12px;margin:12px 0;white-space:pre-wrap;word-break:break-word;}
+  pre .c{color:#8b87a8;}
+
+  /* type specimens */
+  .spec{border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:12px;background:#fff;}
+  .spec .lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;}
+  .s-display{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,5vw,54px);line-height:1.06;text-transform:uppercase;letter-spacing:-.012em;}
+  .s-body{font-family:var(--font-body);font-size:15px;line-height:1.55;color:var(--muted);max-width:60ch;}
+  .s-mono{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);}
+
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th{text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:0 12px 10px 0;border-bottom:1px solid var(--line-strong);}
+  td{padding:11px 12px 11px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--muted);}
+  td:first-child{color:var(--text);font-weight:600;white-space:nowrap;}
+
+  .sw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+  .sw{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .sw .chip{height:74px;}
+  .sw .meta{padding:10px 12px;}
+  .sw .nm{font-size:12.5px;font-weight:600;}
+  .sw .hx{font-family:var(--font-mono);font-size:11px;color:var(--dim);margin-top:3px;}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 26px;border-radius:999px;font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:.04em;text-transform:uppercase;border:2px solid transparent;cursor:pointer;}
+  .arr{font-family:var(--font-mono);font-size:1.3em;display:inline-block;line-height:1;vertical-align:middle;}
+  .btn-fill{background:var(--pg-btn);background-repeat:no-repeat;color:#fff;}
+  .btn-ink{background:var(--ink);color:#fff;}
+  .btn-ghost{background:transparent;color:var(--text);border-color:var(--line-strong);}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+
+  .flag{border-left:4px solid var(--pink);background:#fff;border-radius:0 14px 14px 0;padding:18px 20px;margin:16px 0;box-shadow:0 12px 34px rgba(20,16,48,.06);}
+  .flag .ft{font-family:var(--font-display);font-weight:700;font-size:16px;text-transform:uppercase;margin-bottom:8px;}
+  .flag p{font-size:14.5px;color:var(--muted);max-width:72ch;margin-bottom:8px;}
+  .flag p:last-child{margin-bottom:0;}
+
+  ul.rules{list-style:none;}
+  ul.rules li{position:relative;padding-left:20px;font-size:14.5px;color:var(--muted);margin-bottom:9px;max-width:74ch;}
+  ul.rules li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--pink);}
+  ul.rules li b{color:var(--text);}
+  .yes{color:#0a7d52;font-weight:700;} .no{color:#c0392b;font-weight:700;}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.6);font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:34px 22px;margin-top:50px;}
+  @media(max-width:640px){ .btn-row .btn{width:100%;} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="k">For Hannah · site implementation</div>
+    <h1>The <span class="grad">Propeller</span> style guide</h1>
+    <p>Everything you need to build the restyled propeller.la. Fonts first, then colour, type scale, components and the copy rules. All values here are the real ones from the prototype, so you can copy them straight across.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ FONTS ============ -->
+  <section>
+    <h2>1 · Fonts</h2>
+    <p class="lede">Three faces, three jobs. Never mix the roles - the whole look depends on the split between a condensed uppercase display face, a neutral body face and a mono for small labels.</p>
+
+    <div class="spec">
+      <div class="lbl">Display · Oswald · weights 400 500 600 700</div>
+      <div class="s-display">Do good. Win big.</div>
+      <p class="s-body" style="margin-top:14px">Every headline, button label, stat number and card title. <b>Always uppercase</b>, line-height 1.0-1.13, letter-spacing about -0.01em on big sizes. Weight 700 for headlines, 600 for card titles.</p>
+    </div>
+
+    <div class="spec">
+      <div class="lbl">Body · Inter · weights 300-800</div>
+      <div class="s-body" style="font-size:17px;color:var(--text)">All running copy, form fields, descriptions and paragraphs. Sentence case, 15px base, line-height 1.55. Use weight 500 for secondary copy on light backgrounds so it does not go muddy.</div>
+    </div>
+
+    <div class="spec">
+      <div class="lbl">Labels · Space Mono · weights 400 700</div>
+      <div class="s-mono">Eyebrows · statuses · metadata · 0.18em tracking</div>
+      <p class="s-body" style="margin-top:14px">Small uppercase labels only: eyebrows above headlines, status pills, timestamps, counts, table headers. 10-11px, letter-spacing 0.14-0.22em. <b>Never use it for body copy.</b></p>
+    </div>
+
+    <h3>Paste this into the head</h3>
+    <pre>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap"&gt;</pre>
+
+    <pre><span class="c">/* font tokens */</span>
+--font-display: 'Oswald', Impact, sans-serif;
+--font-body:    'Inter', -apple-system, sans-serif;
+--font-mono:    'Space Mono', ui-monospace, monospace;</pre>
+
+    <div class="flag">
+      <div class="ft">⚠ Decide before Hannah starts: Oswald or the licensed face?</div>
+      <p>The prototype uses <b>Oswald</b> (free, Google Fonts) as the display face, matching the partner portal. The legacy propeller.la marketing site uses <b>Aktiv Grotesk Condensed</b>, with <b>Balboa 900</b> as its substitute, both via Adobe Typekit kit <code>lrp5ong</code>.</p>
+      <p>These are not interchangeable and swapping later means re-tuning every headline size. Confirm with Brandon which one ships, then Hannah builds against it once.</p>
+    </div>
+
+    <div class="flag">
+      <div class="ft"><span class="yes">Resolved</span> · every page is now on the three-face system</div>
+      <p><code>how-it-works-v2.html</code> was the last outlier (Anton + Space Grotesk, hard "sticker" borders). It has been converged to Oswald + Inter + Space Mono with the soft-card chrome, so you can treat all pages as consistent.</p>
+    </div>
+  </section>
+
+  <!-- ============ COLOUR ============ -->
+  <section>
+    <h2>2 · Colour</h2>
+    <p class="lede">Near-black ground for hero and chrome, off-white for content, with the brand gradient used sparingly for emphasis. The gradient is a highlight, not a background.</p>
+
+    <div class="sw-grid">
+      <div class="sw"><div class="chip" style="background:#FE20B0"></div><div class="meta"><div class="nm">Brand pink</div><div class="hx">#FE20B0</div></div></div>
+      <div class="sw"><div class="chip" style="background:#F9A907"></div><div class="meta"><div class="nm">Amber</div><div class="hx">#F9A907</div></div></div>
+      <div class="sw"><div class="chip" style="background:#FF8400"></div><div class="meta"><div class="nm">Button amber</div><div class="hx">#FF8400</div></div></div>
+      <div class="sw"><div class="chip" style="background:#7C01FF"></div><div class="meta"><div class="nm">Violet</div><div class="hx">#7C01FF</div></div></div>
+      <div class="sw"><div class="chip" style="background:#0b0a10"></div><div class="meta"><div class="nm">Ink</div><div class="hx">#0b0a10</div></div></div>
+      <div class="sw"><div class="chip" style="background:#15132b"></div><div class="meta"><div class="nm">Text</div><div class="hx">#15132b</div></div></div>
+      <div class="sw"><div class="chip" style="background:#4a4763"></div><div class="meta"><div class="nm">Muted text</div><div class="hx">#4a4763</div></div></div>
+      <div class="sw"><div class="chip" style="background:#6b6880"></div><div class="meta"><div class="nm">Dim text</div><div class="hx">#6b6880</div></div></div>
+      <div class="sw"><div class="chip" style="background:#f6f6f9"></div><div class="meta"><div class="nm">Page ground</div><div class="hx">#f6f6f9</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--pg)"></div><div class="meta"><div class="nm">Brand gradient</div><div class="hx">90deg, 3 stops</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--pg-btn)"></div><div class="meta"><div class="nm">Button gradient</div><div class="hx">90deg, 3 stops</div></div></div>
+    </div>
+
+    <pre><span class="c">/* colour tokens */</span>
+--pg:     linear-gradient(90deg, #F9A907 22%, #FE20B0 54%, #7C01FF 92%);
+--pg-btn: linear-gradient(90deg, #FF8400 22%, #FE20B0 54%, #7C01FF 92%);
+--pink: #FE20B0;
+--ink:  #0b0a10;
+--text: #15132b;   --muted: #4a4763;   --dim: #6b6880;
+--line: rgba(20,16,48,0.12);
+--line-strong: rgba(20,16,48,0.22);</pre>
+
+    <div class="flag">
+      <div class="ft">⚠ The pink needs a ruling</div>
+      <p>This prototype uses <b>#FE20B0</b>, the propeller.la marketing pink. The partner-portal style guide, which was called the standard for new work, uses <b>#FF6B9D</b> with an orange-to-pink CTA gradient instead.</p>
+      <p>Both are live somewhere in the business right now. Since Hannah is about to apply one of them across the whole site, this is worth five minutes to settle rather than discovering it later.</p>
+    </div>
+
+    <h3>Action-type colours</h3>
+    <p class="s-body">Each action type on <code>earn-points.html</code> gets its own accent colour — used as the tag/badge fill (<code>--acc</code>), the type-filter dot (<code>--tc</code>) and the card's top border. Petition, Watch, Quiz and Share reuse core brand colours above; Pledge, Survey, Learn and Discover are secondary-only.</p>
+    <div class="sw-grid">
+      <div class="sw"><div class="chip" style="background:#0b0a10"></div><div class="meta"><div class="nm">Petition</div><div class="hx">#0b0a10</div></div></div>
+      <div class="sw"><div class="chip" style="background:#16A34A"></div><div class="meta"><div class="nm">Pledge</div><div class="hx">#16A34A</div></div></div>
+      <div class="sw"><div class="chip" style="background:#7c01ff"></div><div class="meta"><div class="nm">Watch</div><div class="hx">#7c01ff</div></div></div>
+      <div class="sw"><div class="chip" style="background:#0284C7"></div><div class="meta"><div class="nm">Survey</div><div class="hx">#0284C7</div></div></div>
+      <div class="sw"><div class="chip" style="background:#F9A907"></div><div class="meta"><div class="nm">Quiz</div><div class="hx">#F9A907</div></div></div>
+      <div class="sw"><div class="chip" style="background:#0891B2"></div><div class="meta"><div class="nm">Learn</div><div class="hx">#0891B2</div></div></div>
+      <div class="sw"><div class="chip" style="background:#FE20B0"></div><div class="meta"><div class="nm">Share</div><div class="hx">#FE20B0</div></div></div>
+      <div class="sw"><div class="chip" style="background:#3939c9"></div><div class="meta"><div class="nm">Discover</div><div class="hx">#3939c9</div></div></div>
+    </div>
+
+    <pre><span class="c">/* action-type tokens (earn-points.html) */</span>
+--t-petition: #0b0a10;
+--t-pledge:   #16A34A;
+--t-watch:    #7c01ff;
+--t-survey:   #0284C7;
+--t-quiz:     #F9A907;
+--t-learn:    #0891B2;
+--t-share:    #FE20B0;
+--t-discover: #3939c9;</pre>
+
+    <h3>Where the gradient goes</h3>
+    <ul class="rules">
+      <li><span class="yes">Do</span> use it on primary buttons, one or two words of a headline, thin progress bars, small badges and stat numbers.</li>
+      <li><span class="no">Don't</span> fill a whole section background with it, run it behind body copy, or animate its colours. We tried the shifting-gradient text and cut it.</li>
+      <li><span class="yes">Do</span> use <code>--pg-btn</code> (amber swapped to <b>#FF8400</b>) instead of <code>--pg</code> specifically when the gradient fills a button — <code>.btn-fill</code>, <code>.btn-grad</code>, <code>.btn-premier</code>, <code>.btn.golden</code>, <code>.btn.premier-pill</code>, <code>.go-premier</code> and <code>.redeem</code> all use it. Headline text, badges, dots and stat numbers keep the original <code>--pg</code> amber.</li>
+    </ul>
+  </section>
+
+  <!-- ============ TYPE SCALE ============ -->
+  <section>
+    <h2>3 · Type scale</h2>
+    <p class="lede">Everything fluid with <code>clamp()</code>, so it never needs a mobile-specific override. Mobile value first, viewport unit second, desktop cap third.</p>
+    <div class="card">
+      <table>
+        <thead><tr><th>Role</th><th>Font</th><th>Size</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Page hero h1</td><td>Oswald 700</td><td><code>clamp(38px,6vw,72px)</code></td><td>Uppercase, line-height 1.03, tracking -.015em</td></tr>
+          <tr><td>Section h2</td><td>Oswald 700</td><td><code>clamp(30px,5vw,54px)</code></td><td>Uppercase, line-height 1.06</td></tr>
+          <tr><td>Sub-section</td><td>Oswald 700</td><td><code>clamp(21px,3vw,28px)</code></td><td>Uppercase</td></tr>
+          <tr><td>Card title</td><td>Oswald 600</td><td>17-20px</td><td>Uppercase, line-height 1.13</td></tr>
+          <tr><td>Body</td><td>Inter 400</td><td>15px</td><td>line-height 1.55, max-width ~70ch</td></tr>
+          <tr><td>Small body</td><td>Inter 400</td><td>13-14px</td><td>Card descriptions</td></tr>
+          <tr><td>Eyebrow / label</td><td>Space Mono 400</td><td>10-11px</td><td>Uppercase, tracking .14-.22em</td></tr>
+          <tr><td>Big stat</td><td>Oswald 700</td><td><code>clamp(38px,7vw,80px)</code></td><td>Add <code>font-variant-numeric: tabular-nums</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ COMPONENTS ============ -->
+  <section>
+    <h2>4 · Components</h2>
+
+    <h3>Buttons — always full pills</h3>
+    <div class="card">
+      <div class="btn-row">
+        <span class="btn btn-fill">Enter to win <span class="arr">→</span></span>
+        <span class="btn btn-ink">Go Premier</span>
+        <span class="btn btn-ghost">See all</span>
+      </div>
+      <pre style="margin-bottom:0"><span class="c">/* every button is a 999px pill */</span>
+border-radius: 999px;
+padding: 15px 26px;
+font: 700 15px/1 'Oswald';
+letter-spacing: .04em;
+text-transform: uppercase;</pre>
+    </div>
+
+    <h3>Surfaces</h3>
+    <div class="card">
+      <table>
+        <thead><tr><th>Token</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Card background</td><td>#fff</td></tr>
+          <tr><td>Card border</td><td>1px solid var(--line)</td></tr>
+          <tr><td>Card radius</td><td>16px standard, 18px large, 22-26px hero</td></tr>
+          <tr><td>Card shadow</td><td><code>0 12px 34px rgba(20,16,48,.06)</code></td></tr>
+          <tr><td>Hover</td><td><code>translateY(-3px)</code> + deeper shadow, .16s ease</td></tr>
+          <tr><td>Pills / bars / chips</td><td>999px, always</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Imagery</h3>
+    <ul class="rules">
+      <li>Photos sit under a <b>dark gradient scrim</b> whenever text sits on them. Never place white type straight onto a photo.</li>
+      <li>Experience artwork is <b>square</b> and never cropped - those graphics already carry their own title lockup, so don't add a headline over them. Pull them live from the propeller.la CDN (<code>/cdn-cgi/image/...</code>) so they stay current.</li>
+      <li>Cause and action cards use <b>16/11</b> media with the type tag top-left and the nonprofit logo chip bottom-left.</li>
+      <li><b>Winner photos show the winner with the artist.</b> Never split or collage them.</li>
+    </ul>
+
+    <div class="flag">
+      <div class="ft">⚠ The action-page photos are placeholders</div>
+      <p>On <code>action.html</code>, the hero and in-card photos are winner meet-and-greet and festival shots chosen for <b>tone, not subject</b> - some have an artist name visible in frame. That is fine for a design review and wrong for anything live. A meet-and-greet photo is not a photo about voting rights or mental health.</p>
+      <p>Before these ship, they need <b>real cause photography</b> - the fastest source is the partner nonprofits' own approved libraries (HRC, Trevor, Feeding America all have them). Every image is overridable per action with <code>?img=</code>. Same gap on the "earn more" cards.</p>
+    </div>
+  </section>
+
+  <!-- ============ ACTION PAGES ============ -->
+  <section>
+    <h2>5 · Action pages</h2>
+    <p class="lede"><code>action.html</code> renders every action type from URL params (<code>?type=</code>). Two things make these feel like Propeller rather than a form.</p>
+
+    <h3>The stage is cosmic</h3>
+    <ul class="rules">
+      <li>Deep-space background: near-black ground, a per-type accent glow up top so each type keeps its own colour, soft wide nebula, and two parallax starfield layers. Pure CSS, no images.</li>
+      <li><b>Petitions are the exception - they stay dry.</b> No starfield, one restrained wash, a sober gradient. Serious asks shouldn't sparkle. The per-type hook is <code>body.t-&lt;type&gt;</code>, so any type can be toned up or down.</li>
+      <li>Watch runs in a pure-black cinema mode. Discover is a multi-step Duolingo-style lesson, not a single card.</li>
+    </ul>
+
+    <h3>Every action feeds a sweepstakes</h3>
+    <p class="lede">This is the whole difference from a change.org or a generic petition tool, and the layout has to show it.</p>
+    <ul class="rules">
+      <li>Lead with the experience: an eyebrow chip ("Win a VIP trip to...") and a CTA that reads <b>"earn 25 entries"</b>, not just "+points".</li>
+      <li>Include a <b>"what this action enters you to win"</b> block with the real experience artwork and the prize package.</li>
+      <li><b>Built to be scanned, not read.</b> The ask and the sign/submit action sit high; supporting detail (who you're telling, why it matters as numbers, who started it, what happens next) sits below; the formal/legal text collapses one tap away. Never open on a wall of body copy.</li>
+      <li>On any entry surface, keep the <b>AMOE / no-purchase</b> line visible - it's required. Everything else legal can live in the collapsed drawer.</li>
+    </ul>
+  </section>
+
+  <!-- ============ ICONS ============ -->
+  <section>
+    <h2>6 · Icons</h2>
+    <p class="lede">The prototype uses inline SVGs and a few emoji placeholders. The real set is Brandt's to build - the full running spec, priorities and naming live in <code>ICON-LIBRARY.md</code> in the repo. Don't invent one-off icons per page; pull from that library so the whole site shares one vocabulary.</p>
+    <ul class="rules">
+      <li>Feature icons follow the animated gradient "puck" look already used on Premier (<code>assets/premier/*.gif</code>).</li>
+      <li>Flat UI icons are single-colour SVG on a 24×24 grid using <code>currentColor</code> - no baked hex.</li>
+      <li>Deliver on <b>true transparency</b> so the same file composites on both light and dark.</li>
+    </ul>
+  </section>
+
+  <!-- ============ MOTION ============ -->
+  <section>
+    <h2>7 · Motion</h2>
+    <ul class="rules">
+      <li>Transitions are <b>.15-.18s ease</b>. Anything slower feels sluggish on a phone.</li>
+      <li>Scroll reveals fade up ~20px, once, via IntersectionObserver. Never re-animate on scroll back.</li>
+      <li>Every animation sits behind <code>@media (prefers-reduced-motion: reduce)</code>. This is not optional.</li>
+      <li>Large blur radii are the expensive part on mobile. Cut blur and opacity under 640px.</li>
+    </ul>
+  </section>
+
+  <!-- ============ COPY ============ -->
+  <section>
+    <h2>8 · Copy rules</h2>
+    <p class="lede">These are hard rules, not preferences. They apply to everything user-facing.</p>
+    <ul class="rules">
+      <li><b>Hyphens, never em dashes.</b> This one is absolute for anything the community sees.</li>
+      <li><b>Never the "not X, it's Y" construction.</b> Also avoid "not just X but Y". It reads as machine-written.</li>
+      <li><b>Always pro-something, never anti-anything.</b></li>
+      <li>The brand is <b>Propeller</b>, never "propeller.la" in copy. URLs in links are fine.</li>
+      <li>Say <b>"actually show up"</b>, not "give a damn". The latter is retired everywhere.</li>
+      <li><b>All-Access</b> is the Premier shorthand: "Get All-Access with Propeller Premier."</li>
+      <li>Don't literally use the word <b>"identity"</b>. Show it through attitude, never announce it.</li>
+      <li><b>Use the nonprofit's own words</b> for cause copy. Never invent a cause claim or a statistic.</li>
+      <li>Lead with <b>bold short statements</b>. If a paragraph needs three sentences to make its point, it is the wrong paragraph.</li>
+    </ul>
+  </section>
+
+  <!-- ============ MOBILE ============ -->
+  <section>
+    <h2>9 · Mobile first, always</h2>
+    <div class="flag">
+      <div class="ft">90%+ of traffic is mobile</div>
+      <p>Design and check the phone layout before the desktop one. Breakpoints in the prototype are <code>820px</code> (tablet, drop to two columns) and <code>560px</code> (phone, single column, full-width buttons).</p>
+      <p>The one thing that catches everyone: use <code>overflow-x: clip</code> on the body, not <code>hidden</code>. <code>hidden</code> turns the body into a scroll container and silently breaks every <code>position: sticky</code> element on the page.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>10 · Where the files are</h2>
+    <p class="lede">Every page is a self-contained HTML file with its CSS inline, so nothing depends on a build step. Start from <code>index.html</code> to click through all of them.</p>
+    <div class="card">
+      <table>
+        <thead><tr><th>File</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr><td>index.html</td><td>Prototype map, links to everything</td></tr>
+          <tr><td>home-simple.html</td><td>Primary homepage</td></tr>
+          <tr><td>dashboard.html</td><td>Post-login cockpit, the merged authed landing</td></tr>
+          <tr><td>action.html</td><td>All action types, driven by <code>?type=</code></td></tr>
+          <tr><td>how-it-works-v2.html</td><td>How it works, now on the standard system</td></tr>
+          <tr><td>rewards.html</td><td>Rewards, with a free / Premier toggle</td></tr>
+          <tr><td>earn-points.html</td><td>Action catalogue</td></tr>
+          <tr><td>clubs.html · premier.html</td><td>Monthly donor and membership</td></tr>
+          <tr><td>winners.html · about.html</td><td>Proof and story</td></tr>
+          <tr><td>ICON-LIBRARY.md</td><td>The running icon build list for Brandt</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer>Propeller · internal style guide · built from the restyle prototype</footer>
+
+<a href="index.html" data-proto-nav style="position:fixed;left:16px;bottom:16px;z-index:2147483000;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;font:600 12px/1 -apple-system,BlinkMacSystemFont,system-ui,sans-serif;letter-spacing:.02em;color:#fff;background:rgba(18,18,18,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.35)">◱ All screens</a>
+</body>
+</html>

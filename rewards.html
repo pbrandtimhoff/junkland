@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Get Rewards — Propeller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  /* ===========================================================
+     TRUE RESKIN of propeller.la /rewards — calibrated to premier.html.
+     Two live states driven by a body class:
+       .mode-free    -> rewards LOCKED for redemption; points buy entries;
+                        strong push to Premier (unlock + 2X carrot).
+       .mode-premier -> rewards UNLOCKED + redeemable; points worth 2X;
+                        spendable balance; Premier-exclusive drop.
+     Keep the real site chrome: BLACK header/footer, WHITE body,
+     real Propeller brand gradient (orange -> pink -> purple).
+     Fonts: Oswald / Inter / Space Mono.
+     =========================================================== */
+  :root{
+    --pg: linear-gradient(90deg, #F9A907 24%, #FE20B0 54%, #7C01FF 90%);
+    --pg-btn: linear-gradient(90deg, #FF8400 24%, #FE20B0 54%, #7C01FF 90%);
+    --ink:#0b0a10;
+    --text:#15132b; --muted:#4a4763; --dim:#6b6880;
+    --line:rgba(20,16,48,0.12); --line-strong:rgba(20,16,48,0.22);
+    --card:#fff;
+    --font-display:'Oswald',Impact,'Arial Narrow Bold',sans-serif;
+    --font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --font-mono:'Space Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{overflow-x:hidden;background:#fff;color:var(--text);font-family:var(--font-body);-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;} img{display:block;max-width:100%;}
+  button{font-family:inherit;cursor:pointer;border:0;background:none;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px;}
+  .grad{background:var(--pg);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .eyebrow{font-family:var(--font-mono);font-size:11px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);}
+
+  /* ===== state visibility switches =====
+     Only ever HIDE the opposite state (body-scoped, so it outranks any
+     component display like .btn / .gate). Shown elements keep their own
+     natural display, so no revert gymnastics are needed. */
+  body.mode-premier .free-only{display:none!important;}
+  body.mode-free    .premier-only{display:none!important;}
+
+  /* ===== buttons ===== */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 30px;border-radius:999px;font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;border:2px solid transparent;transition:transform .16s ease,box-shadow .16s ease,background .16s ease,color .16s ease;}
+  .arr{font-family:var(--font-mono);font-size:1.3em;display:inline-block;line-height:1;vertical-align:middle;}
+  .btn-sm{padding:11px 22px;font-size:13px;}
+  .btn-premier{position:relative;color:#fff;border:2px solid transparent;border-radius:999px;
+    background-image:linear-gradient(var(--ink),var(--ink)),var(--pg-btn);background-origin:border-box;background-clip:padding-box,border-box;background-repeat:no-repeat;}
+  .btn-premier:hover{transform:translateY(-1px);box-shadow:0 12px 34px rgba(254,32,176,0.32);}
+  .btn-fill{background:var(--pg-btn);background-repeat:no-repeat;color:#fff;}
+  .btn-fill:hover{transform:translateY(-1px);box-shadow:0 12px 34px rgba(254,32,176,0.32);}
+  .btn-ghost{background:transparent;color:var(--text);border-color:var(--line-strong);}
+  .btn-ghost:hover{background:rgba(20,16,48,0.05);border-color:var(--text);}
+  .btn-on-dark{background:#fff;color:var(--ink);}
+  .btn-on-dark:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(0,0,0,0.28);}
+
+  /* ===== header (black, like the real site) ===== */
+  header.top{background:var(--ink);color:#fff;position:relative;z-index:60;}
+  header.top .bar{max-width:1180px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .brand-logo{height:28px;width:auto;}
+  nav.main{display:flex;gap:2px;}
+  nav.main a{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);padding:9px 10px;border-radius:999px;transition:color .15s,background .15s;}
+  nav.main a:hover,nav.main a.on{color:#fff;background:rgba(255,255,255,0.08);}
+  header .right{display:flex;align-items:center;gap:14px;}
+  header .pts{font-family:var(--font-mono);font-size:12px;letter-spacing:0.06em;color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.22);border-radius:999px;padding:6px 13px;white-space:nowrap;}
+  header .pts b{color:#fff;font-weight:700;}
+  /* Premier balance pill — gradient border, feels spendable */
+  header .pts.premier{position:relative;color:#fff;border:1px solid transparent;
+    background-image:linear-gradient(var(--ink),var(--ink)),var(--pg);background-origin:border-box;background-clip:padding-box,border-box;
+    display:inline-flex;align-items:center;gap:7px;}
+  header .pts.premier .star{background:var(--pg);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;}
+  header .login{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);white-space:nowrap;}
+
+  /* ===== page hero (white) ===== */
+  .pagehead{padding-top:20px;}
+  .pagehead h1{font-family:var(--font-display);font-size:clamp(46px,9vw,88px);font-weight:700;line-height:0.98;letter-spacing:-0.01em;text-transform:uppercase;margin:12px 0 0;}
+  .pagehead .lead{margin-top:18px;max-width:640px;font-size:16px;line-height:1.6;color:var(--muted);font-weight:500;}
+  .pagehead .lead b{color:var(--text);font-weight:700;}
+
+  /* featured reward — full-width feature banner */
+  .featured{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-top:30px;min-height:clamp(360px,46vh,470px);display:flex;align-items:center;overflow:hidden;background:#0b0a10;}
+  .featured .fimg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;transition:filter .2s ease;}
+  body.mode-free .featured .fimg-img{filter:grayscale(0.4) contrast(0.95) brightness(0.82);}
+  .featured .fscrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,10,16,0.95) 0%,rgba(11,10,16,0.82) 34%,rgba(11,10,16,0.42) 62%,rgba(11,10,16,0.05) 90%);}
+  .featured .fbody{position:relative;z-index:2;width:100%;max-width:1120px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:flex-start;color:#fff;}
+  .featured .fbadge{font-family:var(--font-mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;background:var(--pg);color:#fff;padding:7px 13px;border-radius:999px;margin-bottom:16px;}
+  .featured .fk{font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:color-mix(in srgb,#FE20B0 55%,#fff);margin-bottom:10px;}
+  .featured .fbody h2{font-family:var(--font-display);font-size:clamp(28px,4.6vw,50px);font-weight:700;text-transform:uppercase;letter-spacing:-0.01em;line-height:1.06;margin:0 0 14px;max-width:17ch;}
+  .featured .fmeta{font-family:var(--font-mono);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.82);margin-bottom:22px;}
+  .featured .fbody .btn{align-self:flex-start;}
+  .featured .flock{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:16px;}
+
+  /* ===== status band under the hero (swaps by state) ===== */
+  .gate{margin-top:16px;position:relative;overflow:hidden;background:var(--pg);border-radius:20px;padding:26px 30px;align-items:center;gap:22px;flex-wrap:wrap;justify-content:space-between;box-shadow:0 18px 50px rgba(254,32,176,0.22);}
+  .gate.is-flex{display:flex;}
+  .gate .gcopy{max-width:60ch;}
+  .gate .gk{font-family:var(--font-mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.9);}
+  .gate h3{font-family:var(--font-display);font-size:clamp(20px,3vw,28px);font-weight:700;text-transform:uppercase;letter-spacing:-0.005em;line-height:1.1;color:#fff;margin:6px 0 6px;}
+  .gate p{font-size:14px;line-height:1.55;color:rgba(255,255,255,0.94);}
+  .gate p b{color:#fff;font-weight:700;}
+  .gate .gcta{flex:0 0 auto;}
+  /* premier status band: dark card with gradient border, celebratory not upsell */
+  .status{margin-top:16px;position:relative;overflow:hidden;border-radius:20px;padding:24px 28px;align-items:center;gap:22px;flex-wrap:wrap;justify-content:space-between;
+    background-image:linear-gradient(var(--ink),var(--ink)),var(--pg);background-origin:border-box;background-clip:padding-box,border-box;border:2px solid transparent;
+    box-shadow:0 18px 50px rgba(11,10,16,0.25);}
+  .status.is-flex{display:flex;}
+  .status::before{content:"";position:absolute;inset:0;background:radial-gradient(90% 150% at 92% 0%,rgba(254,32,176,0.24),transparent 55%);pointer-events:none;}
+  .status .scopy{position:relative;max-width:62ch;}
+  .status .sk{font-family:var(--font-mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;}
+  .status h3{font-family:var(--font-display);font-size:clamp(22px,3vw,30px);font-weight:700;text-transform:uppercase;letter-spacing:-0.005em;line-height:1.1;color:#fff;margin:6px 0 6px;}
+  .status p{font-size:14px;line-height:1.55;color:rgba(255,255,255,0.82);}
+  .status p b{color:#fff;font-weight:700;}
+  .status .sbal{position:relative;flex:0 0 auto;text-align:right;}
+  .status .sbal .n{font-family:var(--font-display);font-size:44px;font-weight:700;line-height:1;background:var(--pg);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .status .sbal .l{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:6px;}
+  .status .sbal .x2{display:inline-block;margin-top:10px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,0.14);border-radius:999px;padding:5px 11px;}
+
+  /* ===== catalog controls ===== */
+  section{position:relative;padding-top:56px;}
+  .cat-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+  h2.sec{font-family:var(--font-display);font-size:clamp(26px,4vw,40px);font-weight:700;text-transform:uppercase;letter-spacing:-0.01em;line-height:1.1;margin:10px 0 6px;}
+  .cats{display:flex;gap:9px;overflow-x:auto;padding:6px 2px 10px;margin:0 -2px 4px;-webkit-overflow-scrolling:touch;}
+  .cats::-webkit-scrollbar{height:5px;} .cats::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:999px;}
+  .chip{flex:0 0 auto;font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 15px;cursor:pointer;transition:background .15s,color .15s,border-color .15s;white-space:nowrap;}
+  .chip:hover{border-color:var(--line-strong);color:var(--text);}
+  .chip.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+  .count{font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);}
+  .count b{color:var(--text);}
+  .sortby{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);}
+  .sortby select{font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text);background:#fff;border:1px solid var(--line-strong);border-radius:999px;padding:9px 14px;cursor:pointer;}
+
+  /* ===== reward grid ===== */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;}
+  .card:hover{transform:translateY(-3px);border-color:var(--line-strong);box-shadow:0 18px 40px rgba(20,16,48,0.12);}
+  .rimg{position:relative;}
+  .rimg img{width:100%;aspect-ratio:1;object-fit:cover;background:#faf9fc;transition:filter .2s ease;}
+  .badge{position:absolute;top:10px;left:10px;font-family:var(--font-mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(11,10,16,0.9);color:#fff;padding:5px 9px;border-radius:999px;}
+  .badge.premier{background:var(--pg);color:#fff;}
+  .badge.exp{background:rgba(255,255,255,0.94);color:var(--text);}
+  .rbody{padding:14px 15px 16px;display:flex;flex-direction:column;flex:1;}
+  .rbody .cause{font-family:var(--font-mono);font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;}
+  .rbody h3{font-size:13px;font-weight:600;line-height:1.32;color:var(--text);min-height:2.6em;}
+  .rfoot{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .cost{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text);line-height:1;}
+  .cost span{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:var(--dim);text-transform:uppercase;}
+  .price{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text);line-height:1;}
+  .donation-note{font-family:var(--font-mono);font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--dim);}
+  .cta-link{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);border-bottom:2px solid #FE20B0;padding-bottom:2px;white-space:nowrap;}
+  /* the small "2x entries" flag on experience cards in premier mode */
+  .x2-flag{font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#fff;background:var(--pg);border-radius:999px;padding:5px 9px;white-space:nowrap;}
+
+  /* ---- points-reward cards: locked (free) vs redeemable (premier) ---- */
+  .card.pts-reward .rimg::after{content:"";position:absolute;inset:0;background:rgba(11,10,16,0.30);opacity:0;transition:opacity .2s ease;pointer-events:none;}
+  body.mode-free .card.pts-reward .rimg::after{opacity:1;}
+  body.mode-free .card.pts-reward .rimg img{filter:grayscale(0.55) contrast(0.95);}
+  body.mode-free .card.pts-reward .rimg .lock-ic{filter:none;}
+  .card.pts-reward .lockchip{position:absolute;left:10px;bottom:10px;display:none;align-items:center;gap:6px;font-family:var(--font-mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(11,10,16,0.9);color:#fff;padding:6px 9px;border-radius:999px;z-index:2;}
+  .lockchip .lock-ic,.flock .lock-ic{width:10.2px;height:12.75px;aspect-ratio:auto;object-fit:contain;background:transparent;flex:0 0 auto;display:block;}
+  body.mode-free .card.pts-reward .lockchip{display:inline-flex;}
+  /* free-member cost is greyed so it reads as "not yet spendable" */
+  body.mode-free .card.pts-reward .cost{color:var(--dim);}
+  body.mode-free .card.pts-reward .cost span{color:var(--dim);}
+  /* free CTA: go premier pill */
+  .go-premier{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-mono);font-weight:700;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:#fff;background:var(--pg-btn);border-radius:999px;padding:8px 13px;white-space:nowrap;}
+  /* premier CTA: real redeem button */
+  .redeem{font-family:var(--font-display);font-weight:700;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;background:var(--pg-btn);border-radius:999px;padding:9px 15px;white-space:nowrap;transition:transform .14s ease,box-shadow .14s ease;}
+  .redeem:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(254,32,176,0.32);}
+  .redeem.short{background:#fff;color:var(--dim);border:1px solid var(--line-strong);}
+  .redeem.short:hover{transform:none;box-shadow:none;}
+
+  /* Premier upsell band (free), spans full grid width (dark) */
+  .card.upsell{grid-column:1 / -1;background:var(--ink);color:#fff;border:0;position:relative;overflow:hidden;flex-direction:row;align-items:center;justify-content:space-between;gap:22px;padding:30px 34px;box-shadow:0 24px 60px rgba(11,10,16,0.28);}
+  body.mode-free .card.upsell.free-only.is-flex{display:flex;}
+  .card.upsell:hover{transform:none;box-shadow:0 24px 60px rgba(11,10,16,0.28);}
+  .card.upsell::before{content:"";position:absolute;inset:0;background:radial-gradient(90% 150% at 90% 4%,rgba(254,32,176,0.22),transparent 55%);pointer-events:none;}
+  .upsell .ucopy{position:relative;}
+  .upsell .uk{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;}
+  .upsell h3{font-family:var(--font-display);font-size:clamp(26px,3.6vw,40px);font-weight:700;text-transform:uppercase;letter-spacing:-0.01em;line-height:1.06;margin:8px 0 8px;}
+  .upsell p{font-size:14px;line-height:1.55;color:rgba(255,255,255,0.82);max-width:52ch;}
+  .upsell .uright{position:relative;flex:0 0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .upsell .price-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);}
+  .upsell .price-tag b{display:block;font-family:var(--font-display);font-size:34px;font-weight:700;color:#fff;letter-spacing:-0.01em;margin-top:4px;}
+
+  /* Premier-exclusive drop band (premier), full grid width (gradient border) */
+  .card.exclusive{grid-column:1 / -1;position:relative;overflow:hidden;border:2px solid transparent;
+    background-image:linear-gradient(#fff,#fff),var(--pg);background-origin:border-box;background-clip:padding-box,border-box;
+    flex-direction:row;align-items:center;gap:22px;padding:20px 22px;box-shadow:0 18px 44px rgba(254,32,176,0.14);}
+  body.mode-premier .card.exclusive.premier-only.is-flex{display:flex;}
+  .card.exclusive:hover{transform:none;box-shadow:0 18px 44px rgba(254,32,176,0.14);}
+  .exclusive .eimg{flex:0 0 auto;width:112px;height:112px;border-radius:14px;overflow:hidden;}
+  .exclusive .eimg img{width:100%;height:100%;object-fit:cover;}
+  .exclusive .ecopy{flex:1;min-width:0;}
+  .exclusive .ek{font-family:var(--font-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;background:var(--pg);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;}
+  .exclusive h3{font-family:var(--font-display);font-size:clamp(19px,2.6vw,26px);font-weight:700;text-transform:uppercase;letter-spacing:-0.005em;line-height:1.12;margin:6px 0 6px;color:var(--text);}
+  .exclusive p{font-size:13px;line-height:1.5;color:var(--muted);max-width:56ch;}
+  .exclusive .eright{flex:0 0 auto;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+  .exclusive .ecost{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--text);line-height:1;}
+  .exclusive .ecost span{font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:var(--dim);text-transform:uppercase;}
+
+  /* ===== final band — upsell (free) vs thank-you (premier) ===== */
+  .final{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-top:64px;background:var(--ink);color:#fff;text-align:center;overflow:hidden;}
+  .final::before{content:"";position:absolute;inset:0;background:radial-gradient(90% 130% at 85% 6%,rgba(254,32,176,0.18),transparent 55%);}
+  .final-inner{position:relative;max-width:720px;margin:0 auto;padding:74px 22px;}
+  .final .eyebrow{color:rgba(255,255,255,0.6);}
+  .final h2{font-family:var(--font-display);font-size:clamp(30px,5vw,54px);font-weight:700;text-transform:uppercase;letter-spacing:-0.01em;line-height:1.06;margin-top:10px;}
+  .final p{margin:16px auto 28px;max-width:500px;color:rgba(255,255,255,0.8);font-size:15px;line-height:1.6;}
+  .final .benefits{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;margin-bottom:30px;}
+  .final .benefits span{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.82);}
+  .final .benefits .dot{width:9px;height:9px;border-radius:50%;background:var(--pg);flex:0 0 auto;}
+
+  /* ===== footer (black) ===== */
+  footer{background:var(--ink);color:rgba(255,255,255,0.72);padding:46px 22px 58px;text-align:center;}
+  footer .pmark{display:inline-block;margin-bottom:22px;}
+  footer .pmark img{height:22px;width:auto;}
+  footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 22px;}
+  footer nav a{font-family:var(--font-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+  footer nav a:hover{color:#fff;}
+  footer .copy{margin-top:24px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+
+  /* ===== INTERNAL PREVIEW TOGGLE (not part of the real page) ===== */
+  #preview-toggle{position:fixed;right:16px;bottom:16px;z-index:9999;background:#101014;color:#fff;border:1px dashed rgba(255,255,255,0.42);border-radius:14px;padding:9px 10px 10px;box-shadow:0 14px 40px rgba(0,0,0,0.45);font-family:var(--font-mono);width:216px;}
+  #preview-toggle .pt-label{font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:#ffd84d;display:flex;align-items:center;gap:6px;margin-bottom:8px;}
+  #preview-toggle .pt-label .dotwarn{width:7px;height:7px;border-radius:50%;background:#ffd84d;box-shadow:0 0 0 3px rgba(255,216,77,0.18);}
+  #preview-toggle .pt-switch{display:flex;background:#000;border-radius:9px;padding:3px;gap:3px;}
+  #preview-toggle .pt-switch button{flex:1;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.6);padding:8px 6px;border-radius:7px;transition:background .15s,color .15s;}
+  #preview-toggle .pt-switch button.on{color:#fff;background:#26262e;font-weight:700;}
+  body.mode-premier #preview-toggle .pt-switch button[data-mode="premier"].on{background:var(--pg-btn);}
+  #preview-toggle .pt-hint{margin-top:7px;font-size:8px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.34);line-height:1.4;}
+
+  /* ===== responsive ===== */
+  @media(min-width:640px){ .grid{grid-template-columns:repeat(3,1fr);} }
+  @media(min-width:960px){ .grid{grid-template-columns:repeat(4,1fr);gap:18px;} }
+
+  @media(max-width:900px){ nav.main{display:none;} header.top .bar{justify-content:center;position:relative;} header.top .right{position:absolute;right:24px;top:50%;transform:translateY(-50%);} }
+  @media(max-width:820px){
+    header .login{display:none;}
+    .featured{min-height:420px;}
+    .featured .fscrim{background:linear-gradient(180deg,rgba(11,10,16,0.5) 0%,rgba(11,10,16,0.72) 50%,rgba(11,10,16,0.94) 100%);}
+    .gate,.status{padding:22px 22px;}
+    .gate .gcta{width:100%;}
+    .gate .gcta .btn{width:100%;}
+    .status .sbal{text-align:left;}
+    .card.upsell{flex-direction:column;align-items:flex-start;text-align:left;gap:18px;padding:26px 22px;}
+    .upsell .uright{align-items:flex-start;text-align:left;flex-direction:row;gap:18px;}
+    .card.exclusive{flex-direction:column;align-items:flex-start;text-align:left;}
+    .exclusive .eright{align-items:flex-start;text-align:left;flex-direction:row;gap:16px;width:100%;justify-content:space-between;}
+    #preview-toggle{right:10px;bottom:10px;width:190px;}
+  }
+  @media(prefers-reduced-motion:reduce){ *{transition:none!important;} }
+</style>
+</head>
+<body class="mode-free">
+
+<!-- header (black) -->
+<header class="top">
+  <div class="bar">
+    <a href="home-simple.html" aria-label="Propeller"><img class="brand-logo" src="assets/propeller-logo.svg" alt="Propeller" /></a>
+    <nav class="main">
+      <a href="earn-points.html">Earn Points</a><a href="rewards.html" class="on">Rewards</a><a href="clubs.html">Clubs</a><a href="winners.html">Winners</a><a href="premier.html">Premier</a>
+    </nav>
+    <div class="right">
+      <span class="pts free-only"><b>1,850</b> pts · buys entries</span>
+      <span class="pts premier premier-only"><span class="star">★</span> Premier · <b>6,400</b> pts</span>
+      <a class="login free-only" href="#">Log in / Sign up</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- page hero -->
+  <div class="pagehead">
+    <!-- FREE headline -->
+    <div class="free-only">
+      <h1>Get rewards.<br><span class="grad">Unlock everything.</span></h1>
+      <p class="lead">Concert tickets. Exclusive merch. Meet &amp; greets.</p>
+    </div>
+
+
+    <!-- featured reward — full-width banner -->
+    <div class="featured">
+      <img class="fimg-img" src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=1600,height=900,format=auto,quality=72/files/yerbamadre_bolts_35040_core3_1000x1000_1_1_29329.jpg" alt="12-Pack of Yerba Madre Original Organic Yerba Mate" />
+      <div class="fscrim"></div>
+      <div class="fbody">
+        <span class="fbadge">Featured Reward</span>
+        <span class="fk">Points reward · Premier</span>
+        <h2>12-Pack Case of Yerba Madre Organic Yerba Mate</h2>
+        <span class="fmeta free-only">1,000 pts · unlocks with Premier</span>
+        <span class="fmeta premier-only">1,000 pts · ready to redeem</span>
+        <a class="btn btn-premier btn-sm free-only" href="#">Go Premier To Redeem <span class="arr">→</span></a>
+        <a class="btn btn-fill btn-sm premier-only" href="#catalog">Redeem · 1,000 pts <span class="arr">→</span></a>
+        <span class="flock free-only"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks this reward</span>
+      </div>
+    </div>
+
+    <!-- FREE: the Premier gate -->
+    <div class="gate free-only is-flex">
+      <div class="gcopy">
+        <span class="gk">Your Balance · 1,850 pts</span>
+        <h3>Right now your points get you entries.</h3>
+        <p><b>Premier unlocks redeeming them</b> for everything above - plus 2X on every action.</p>
+      </div>
+      <div class="gcta">
+        <a class="btn btn-on-dark btn-sm" href="#">Go Premier · $11/mo</a>
+      </div>
+    </div>
+
+    <!-- PREMIER: status band -->
+    <div class="status premier-only is-flex">
+      <div class="scopy">
+        <span class="sk grad">★ Propeller Premier · Active</span>
+        <h3>You're All-Access. Redeem anything below.</h3>
+        <p>Every action earns you <b>2X points</b>, so your balance climbs twice as fast.</p>
+      </div>
+      <div class="sbal">
+        <div class="n">6,400</div>
+        <div class="l">Points ready to redeem</div>
+        <span class="x2">Earning 2X · Premier</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- catalog -->
+  <section id="catalog">
+    <div class="cat-head">
+      <div>
+        <span class="eyebrow">Categories</span>
+        <h2 class="sec">Rewards Catalog</h2>
+      </div>
+    </div>
+
+    <div class="cats">
+      <span class="chip on">All Rewards</span>
+      <span class="chip">Points Rewards</span>
+      <span class="chip">Store</span>
+      <span class="chip">Concert Tickets</span>
+      <span class="chip">Experiences &amp; Sweepstakes</span>
+      <span class="chip">Merch &amp; Apparel</span>
+      <span class="chip">Memorabilia</span>
+      <span class="chip">Auctions</span>
+      <span class="chip">Trips</span>
+      <span class="chip">Books</span>
+      <span class="chip">Goods</span>
+      <span class="chip">Digital &amp; Electronics</span>
+      <span class="chip">Gift Cards</span>
+    </div>
+
+    <div class="toolbar">
+      <div class="count"><b>131</b> of 131 Rewards</div>
+      <label class="sortby">Sort by
+        <select aria-label="Sort rewards">
+          <option>Featured</option>
+          <option>Points: Low to High</option>
+          <option>Points: High to Low</option>
+          <option>Newest</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="grid">
+
+      <!-- experiences (free to enter, open to all) -->
+      <div class="card">
+        <div class="rimg"><span class="badge exp">Experience</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/tdc-npr-2026-experience-page-title-01_75559.jpg" alt="Tiny Desk Concert" /></div>
+        <div class="rbody"><span class="cause">The NPR Network</span><h3>Win a Trip to See a Tiny Desk Concert in Person</h3><div class="rfoot"><span class="donation-note free-only">Free to enter</span><span class="x2-flag premier-only">2X entries</span><a class="cta-link" href="#">Enter Now <span class="arr">→</span></a></div></div>
+      </div>
+      <div class="card">
+        <div class="rimg"><span class="badge exp">Experience</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/melaniemartinez-experience-page-carousel-05_21282.jpg" alt="Melanie Martinez" /></div>
+        <div class="rbody"><span class="cause">Human Rights Campaign</span><h3>Win a Trip to Meet Melanie Martinez on Tour in London</h3><div class="rfoot"><span class="donation-note free-only">Free to enter</span><span class="x2-flag premier-only">2X entries</span><a class="cta-link" href="#">Enter Now <span class="arr">→</span></a></div></div>
+      </div>
+      <div class="card">
+        <div class="rimg"><span class="badge exp">Experience</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/sierraferrell-experience-page-carousel-01_11416.jpg" alt="Sierra Ferrell" /></div>
+        <div class="rbody"><span class="cause">REVERB</span><h3>Win a VIP Trip to Meet Sierra Ferrell at Red Rocks</h3><div class="rfoot"><span class="donation-note free-only">Free to enter</span><span class="x2-flag premier-only">2X entries</span><a class="cta-link" href="#">Enter Now <span class="arr">→</span></a></div></div>
+      </div>
+      <div class="card">
+        <div class="rimg"><span class="badge exp">Experience</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/fosterthepeople-experience-page-title-2_45467.jpg" alt="Foster the People" /></div>
+        <div class="rbody"><span class="cause">St. Jude Children's Research Hospital</span><h3>Win a VIP Trip to See Foster the People at Red Rocks</h3><div class="rfoot"><span class="donation-note free-only">Free to enter</span><span class="x2-flag premier-only">2X entries</span><a class="cta-link" href="#">Enter Now <span class="arr">→</span></a></div></div>
+      </div>
+
+      <!-- points rewards: locked for free, redeemable for premier -->
+      <div class="card pts-reward" data-pts="1000">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/yerbamadre_bolts_35040_core3_1000x1000_1_1_29329.jpg" alt="Yerba Madre 12-pack" /></div>
+        <div class="rbody"><h3>12-Pack Case of Yerba Madre Original Organic Yerba Mate</h3><div class="rfoot"><span class="cost">1,000 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="1000">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/americanfbtix1000x1000_62497.jpg" alt="American Football tickets" /></div>
+        <div class="rbody"><h3>Earn a Pair of Tickets to See American Football at a Show Near You</h3><div class="rfoot"><span class="cost">1,000 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="800">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/dariusruckertix1000x1000_20911.jpg" alt="Darius Rucker tickets" /></div>
+        <div class="rbody"><h3>Earn a Pair of Tickets to See Darius Rucker at a Show Near You</h3><div class="rfoot"><span class="cost">800 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="800">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/dirtyheadstix1000x1000-2_41864.jpg" alt="311 and Dirty Heads tickets" /></div>
+        <div class="rbody"><h3>Earn a Pair of Tickets to See 311 &amp; Dirty Heads at a Show Near You</h3><div class="rfoot"><span class="cost">800 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+
+      <!-- FREE: premier upsell band -->
+      <div class="card upsell free-only is-flex">
+        <div class="ucopy">
+          <span class="uk grad">★ Propeller Premier</span>
+          <h3>Earn more, redeem more.</h3>
+          <p>Right now your points put you in for more sweepstakes entries. Premier members earn 2X points on every action and unlock the full rewards catalog - tickets, merch, meet &amp; greets, and points-only drops.</p>
+        </div>
+        <div class="uright">
+          <span class="price-tag">Starting at<b>$11/mo</b></span>
+          <a class="btn btn-on-dark btn-sm" href="#">Upgrade to Premier <span class="arr">→</span></a>
+        </div>
+      </div>
+
+      <!-- PREMIER: exclusive drop band -->
+      <div class="card exclusive premier-only is-flex">
+        <div class="eimg"><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=400,height=400,format=auto,quality=70/files/marenposter1000x1000_79300.jpg" alt="Signed Maren Morris poster" /></div>
+        <div class="ecopy">
+          <span class="ek">★ Premier Exclusive Drop</span>
+          <h3>Signed Maren Morris 'One Night Only' Poster</h3>
+          <p>A Premier-only drop, limited while supplies last. Members redeem these before anyone else - part of your Premier perks.</p>
+        </div>
+        <div class="eright">
+          <span class="ecost">2,500 <span>pts</span></span>
+          <button class="redeem" type="button" data-pts="2500">Redeem <span class="arr">→</span></button>
+        </div>
+      </div>
+
+      <div class="card pts-reward" data-pts="2000">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/cameronwhitcombtix1000x1000_93309.jpg" alt="Cameron Whitcomb meet and greet" /></div>
+        <div class="rbody"><h3>Earn a Pair of Tickets + a Meet &amp; Greet with Cameron Whitcomb</h3><div class="rfoot"><span class="cost">2,000 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="1000">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/chelseahandler1000x1000_92256.jpg" alt="Chelsea Handler tickets" /></div>
+        <div class="rbody"><h3>Earn a Pair of Tickets to See Chelsea Handler at a Show Near You</h3><div class="rfoot"><span class="cost">1,000 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="800">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/guesswhotix1000x1000_09063.jpg" alt="The Guess Who tickets" /></div>
+        <div class="rbody"><h3>Earn a Pair of Tickets to See The Guess Who at a Show Near You</h3><div class="rfoot"><span class="cost">800 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="800">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/grupoduelotix1000x1000_88205.jpg" alt="Grupo Duelo tickets" /></div>
+        <div class="rbody"><h3>Earn a Pair of Tickets to See Grupo Duelo at a Show Near You</h3><div class="rfoot"><span class="cost">800 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="800">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/coralreefertix1000x1000_93142.jpg" alt="Coral Reefer Band tickets" /></div>
+        <div class="rbody"><h3>Earn a Pair of Tickets to See Coral Reefer Band at a Show Near You</h3><div class="rfoot"><span class="cost">800 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="500">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,quality=70,format=webp/files/tree_09718.gif" alt="Plant a Tree" /></div>
+        <div class="rbody"><h3>Plant a Tree with One Tree Planted</h3><div class="rfoot"><span class="cost">500 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="8000">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/portal-yoga-mat001_93272.jpg" alt="PORTAL Yoga Mat" /></div>
+        <div class="rbody"><h3>PORTAL Yoga Mat</h3><div class="rfoot"><span class="cost">8,000 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="250">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/gobearplug1000x1000_18331.jpg" alt="GOB Compostable Earplugs" /></div>
+        <div class="rbody"><h3>GOB Compostable Earplugs</h3><div class="rfoot"><span class="cost">250 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="2500">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/marenposter1000x1000_79300.jpg" alt="Signed Maren Morris poster" /></div>
+        <div class="rbody"><h3>Signed Maren Morris 'One Night Only' Poster</h3><div class="rfoot"><span class="cost">2,500 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+      <div class="card pts-reward" data-pts="500">
+        <div class="rimg"><span class="badge premier">Premier Only</span><span class="lockchip"><img class="lock-ic" src="assets/icons/lock-solid.svg" alt="" />Premier unlocks</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/portalsticker1000x1000_15587.jpg" alt="PORTAL circle sticker" /></div>
+        <div class="rbody"><h3>3" PORTAL Bicycle Day Circle Sticker</h3><div class="rfoot"><span class="cost">500 <span>pts</span></span><a class="go-premier free-only" href="#">Go Premier <span class="arr">→</span></a><button class="redeem premier-only" type="button">Redeem <span class="arr">→</span></button></div></div>
+      </div>
+
+      <!-- donation rewards (open to all — merch & apparel) -->
+      <div class="card">
+        <div class="rimg"><span class="badge">Merch &amp; Apparel</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/bicycleday25-tshirt-tiedye-final-1_15208.jpg" alt="Bicycle Day tie dye shirt" /></div>
+        <div class="rbody"><h3>Bicycle Day Hand Tie-Dyed Shirt (Extremely Limited Edition)</h3><div class="rfoot"><span class="price">$75</span><span class="donation-note">Donation reward</span></div></div>
+      </div>
+      <div class="card">
+        <div class="rimg"><span class="badge">Merch &amp; Apparel</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/psychsciencetee1000x1000_09120.jpg" alt="Psychedelic Science T-shirt" /></div>
+        <div class="rbody"><h3>Limited Edition Psychedelic Science T-Shirt</h3><div class="rfoot"><span class="price">$35</span><span class="donation-note">Donation reward</span></div></div>
+      </div>
+      <div class="card">
+        <div class="rimg"><span class="badge">Merch &amp; Apparel</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/portaltank1000x1000_99369.jpg" alt="PORTAL tank top" /></div>
+        <div class="rbody"><h3>PORTAL Tank Top</h3><div class="rfoot"><span class="price">$35</span><span class="donation-note">Donation reward</span></div></div>
+      </div>
+      <div class="card">
+        <div class="rimg"><span class="badge">Merch &amp; Apparel</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/ridetee1000x1000_09830.jpg" alt="Ride to Destigmatize T-shirt" /></div>
+        <div class="rbody"><h3>Limited Edition Ride to Destigmatize T-Shirt</h3><div class="rfoot"><span class="price">$35</span><span class="donation-note">Donation reward</span></div></div>
+      </div>
+      <div class="card">
+        <div class="rimg"><span class="badge">Merch &amp; Apparel</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/npr-reward-hoodie_62513.jpg" alt="NPR Tiny Desk hoodie" /></div>
+        <div class="rbody"><h3>NPR Tiny Desk Hoodie</h3><div class="rfoot"><span class="price">$60</span><span class="donation-note">Donation reward</span></div></div>
+      </div>
+      <div class="card">
+        <div class="rimg"><span class="badge">Goods</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/portal-stickers-finals_17312.png" alt="PORTAL circle sticker bundle" /></div>
+        <div class="rbody"><h3>PORTAL Circle Sticker Bundle</h3><div class="rfoot"><span class="price">$15</span><span class="donation-note">Donation reward</span></div></div>
+      </div>
+      <div class="card">
+        <div class="rimg"><span class="badge">Memorabilia</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/rustvinyl_17326.png" alt="Signed vinyl" /></div>
+        <div class="rbody"><h3>'The Great Divide' Vinyl Signed by Noah Kahan</h3><div class="rfoot"><span class="price">$120</span><span class="donation-note">Donation reward</span></div></div>
+      </div>
+      <div class="card">
+        <div class="rimg"><span class="badge">Merch &amp; Apparel</span><img src="https://www.propeller.la/cdn-cgi/image/fit=cover,width=800,height=800,format=auto,quality=70/files/redrocks23-poster-1000x1000_62378.jpg" alt="Red Rocks poster" /></div>
+        <div class="rbody"><h3>Red Rocks x Propeller Poster</h3><div class="rfoot"><span class="price">$20</span><span class="donation-note">Donation reward</span></div></div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:34px;">
+      <a class="btn btn-ghost" href="#">Load More Rewards</a>
+    </div>
+  </section>
+
+</div>
+
+<!-- final band -->
+<div class="final">
+  <!-- FREE: upgrade -->
+  <div class="final-inner free-only">
+    <span class="eyebrow">Propeller Premier</span>
+    <h2>Unlock the <span class="grad">full catalog.</span></h2>
+    <p>Right now your points put you in for more entries. Premier members earn 2X on every action and redeem for the tickets, merch, and experiences they actually want, all while their support goes to real nonprofits.</p>
+    <div class="benefits">
+      <span><i class="dot"></i>2X points on every action</span>
+      <span><i class="dot"></i>Full rewards redemption</span>
+      <span><i class="dot"></i>Starting at $11/mo</span>
+    </div>
+    <a class="btn btn-fill" href="#">Upgrade to Premier <span class="arr">→</span></a>
+  </div>
+
+  <!-- PREMIER: thank-you -->
+  <div class="final-inner premier-only">
+    <span class="eyebrow">Propeller Premier · Member</span>
+    <h2>Thanks for <span class="grad">powering this.</span></h2>
+    <p>Your monthly support goes straight to real nonprofits, and it's why the whole catalog is yours. Keep taking action to stack points at 2X, then redeem for whatever you want above.</p>
+    <div class="benefits">
+      <span><i class="dot"></i>6,400 points ready to spend</span>
+      <span><i class="dot"></i>Earning 2X on every action</span>
+      <span><i class="dot"></i>Premier-only drops unlocked</span>
+    </div>
+    <a class="btn btn-fill" href="#catalog">Browse Rewards <span class="arr">→</span></a>
+  </div>
+</div>
+
+<!-- footer (black) -->
+<footer>
+  <div class="pmark"><img src="assets/propeller-logo-white.png" alt="Propeller" /></div>
+  <nav>
+    <a href="how-it-works-v2.html">How It Works</a><a href="earn-points.html">Experiences</a><a href="#">Causes</a><a href="earn-points.html">Actions</a><a href="rewards.html">Rewards</a>
+    <a href="winners.html">Winner Stories</a><a href="#">Support</a><a href="clubs.html">Clubs</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Official Rules</a>
+  </nav>
+  <div class="copy">Copyright © 2026 Propeller</div>
+</footer>
+
+<!-- INTERNAL PREVIEW TOGGLE — not part of the real page chrome -->
+<div id="preview-toggle" aria-hidden="true">
+  <div class="pt-label"><span class="dotwarn"></span>Internal preview · not shipped</div>
+  <div class="pt-switch">
+    <button type="button" data-mode="free" class="on">Free member</button>
+    <button type="button" data-mode="premier">Premier</button>
+  </div>
+  <div class="pt-hint">Flip the member state to review both views</div>
+</div>
+
+<script>
+  (function(){
+    var PREMIER_BAL = 6400;
+
+    function render(mode){
+      document.body.className = 'mode-' + mode;
+
+      // keep the Premier hero balance in sync
+      var hb = document.getElementById('heroBal');
+      if(hb) hb.textContent = PREMIER_BAL.toLocaleString();
+
+      // toggle button active state
+      document.querySelectorAll('#preview-toggle .pt-switch button').forEach(function(b){
+        b.classList.toggle('on', b.dataset.mode === mode);
+      });
+
+      // Premier redeem buttons: reflect a spendable balance
+      document.querySelectorAll('.card.pts-reward').forEach(function(card){
+        var pts = parseInt(card.dataset.pts, 10);
+        var btn = card.querySelector('.redeem');
+        if(!btn) return;
+        if(mode === 'premier'){
+          if(PREMIER_BAL >= pts){
+            btn.textContent = 'Redeem · ' + pts.toLocaleString() + ' pts →';
+            btn.classList.remove('short');
+            btn.disabled = false;
+          } else {
+            btn.textContent = 'Need ' + (pts - PREMIER_BAL).toLocaleString() + ' more pts';
+            btn.classList.add('short');
+          }
+        }
+      });
+    }
+
+    // wire the toggle
+    document.querySelectorAll('#preview-toggle .pt-switch button').forEach(function(b){
+      b.addEventListener('click', function(){ render(b.dataset.mode); });
+    });
+
+    // category chips (illustrative on this static mockup)
+    var chips = [].slice.call(document.querySelectorAll('.cats .chip'));
+    chips.forEach(function(c){ c.addEventListener('click', function(){
+      chips.forEach(function(x){ x.classList.remove('on'); }); c.classList.add('on');
+    });});
+
+    // redeem clicks (mockup feedback)
+    document.querySelectorAll('.redeem').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        if(btn.classList.contains('short')) return;
+        var original = btn.textContent;
+        btn.textContent = 'Redeemed ✓';
+        setTimeout(function(){ btn.textContent = original; }, 1400);
+      });
+    });
+
+    // initial state
+    render('free');
+  })();
+</script>
+
+<a href="index.html" data-proto-nav style="position:fixed;left:16px;bottom:16px;z-index:2147483000;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;font:600 12px/1 -apple-system,BlinkMacSystemFont,system-ui,sans-serif;letter-spacing:.02em;color:#fff;background:rgba(18,18,18,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.35)">◱ All screens</a>
+</body>
+</html>
