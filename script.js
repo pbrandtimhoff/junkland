@@ -19,7 +19,7 @@ const ANIMATION_FILES = [
     "junkland-03.json",
 ];
 
-const CELL = 300; // tile size in px
+const CELL = 500; // tile size in px
 const GAP = 24; // space between tiles
 const PITCH = CELL + GAP; // distance between tile origins
 
