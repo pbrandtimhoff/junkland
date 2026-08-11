@@ -15,13 +15,7 @@
 */
 
 const ANIMATION_FILES = [
-  "enterwithpoints.json",
-  "beehive-looping.json",
-  "doublepoints.json",
-  "rewards.json",
-  "takeaction.json",
-  "thisbetterwork.json",
-  "bee-flower.json",
+  "junkland-02.json",
 ];
 
 const CELL = 300; // tile size in px
