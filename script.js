@@ -19,6 +19,7 @@ const ANIMATION_FILES = [
   "junkland-03.json",
   "junkland-04.json",
   "thisbetterwork.json",
+   "junkland-05.json",
 ];
 
 const CELL = 500; // tile size in px
