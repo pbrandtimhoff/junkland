@@ -51,8 +51,8 @@ body {
 
 .cell {
   position: absolute;
-  width: 1000px;
-  height: 1000px;
+  width: 500px;
+  height: 500px;
   background: transparent; /* matches the page background */
   border-radius: 16px;
   overflow: hidden;
