@@ -1,4 +1,4 @@
-# Animation Gallery
+# Junkland Gallery
 
 A single page with a sticky "Say hello" contact bar at the top, and below it a grid of `.json` animations you can scroll up, down, left, and right through. Every animation appears exactly once — the grid sizes itself to fit however many files you list, no repeats. Uses [lottie-web](https://github.com/airbnb/lottie-web) to render Lottie/Bodymovin JSON files directly in the browser — no build step, no server.
 
