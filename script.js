@@ -24,6 +24,7 @@ const ANIMATION_FILES = [
   "junkland-04.json",
   "thisbetterwork.json",
    "junkland-05.json",
+  "heart-arrow-looping.json",
 ];
 
 const CELL = 500; // tile size in px
