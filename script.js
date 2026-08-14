@@ -15,6 +15,7 @@
 */
 
 const ANIMATION_FILES = [
+  "junkland-07.json",
   "junkland-06.json",
   "junkland-02.json",
   "junkland-03.json",
