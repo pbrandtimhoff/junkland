@@ -54,7 +54,7 @@ body {
   width: 500px;
   height: 500px;
   background: transparent; /* matches the page background */
-  border-radius: 16px;
+  border-radius: 0px;
   overflow: hidden;
   display: flex;
   align-items: center;
