@@ -17,6 +17,7 @@
 const ANIMATION_FILES = [
   "raindrop.json",
   "junkland-07.json",
+  "junkland-08.json"
   "junkland-06.json",
   "junkland-02.json",
   "junkland-03.json",
