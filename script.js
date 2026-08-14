@@ -1,4 +1,4 @@
-a/*
+/*
   Animation Gallery
   ------------------
   Every animation appears exactly once — no repeats. Tiles are placed
