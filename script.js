@@ -19,6 +19,7 @@ const ANIMATION_FILES = [
   "pride-flag-01.json",
   "pride-01.json",
   "heart-flag.json",
+  "airplane.json",
 ];
 
 const CELL = 500; // tile size in px
