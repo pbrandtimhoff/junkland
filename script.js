@@ -15,6 +15,7 @@
 */
 
 const ANIMATION_FILES = [
+  "points-01.json",
   "raindrop.json",
   "junkland-07.json",
   "junkland-08.json",
