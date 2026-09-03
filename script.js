@@ -23,6 +23,7 @@ const ANIMATION_FILES = [
   "airplane.json",
   "earth-coin.json",
   "mushrooms-01.json",
+  "coins-falling.json",
 ];
 
 const CELL = 500; // tile size in px
