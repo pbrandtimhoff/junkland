@@ -17,6 +17,7 @@
 const ANIMATION_FILES = [
   "points-01.json",
   "pride-01.json",
+  "heart-flag.json",
 ];
 
 const CELL = 500; // tile size in px
