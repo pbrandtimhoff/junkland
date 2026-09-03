@@ -22,6 +22,7 @@ const ANIMATION_FILES = [
   "heart-flag.json",
   "airplane.json",
   "earth-coin.json",
+  "mushrooms-01",
 ];
 
 const CELL = 500; // tile size in px
