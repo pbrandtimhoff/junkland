@@ -24,6 +24,7 @@ const ANIMATION_FILES = [
   "earth-coin.json",
   "mushrooms-01.json",
   "coins-falling.json",
+   "pride-icon.json",
 ];
 
 const CELL = 500; // tile size in px
