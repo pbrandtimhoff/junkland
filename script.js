@@ -16,16 +16,6 @@
 
 const ANIMATION_FILES = [
   "points-01.json",
-  "raindrop.json",
-  "junkland-07.json",
-  "junkland-08.json",
-  "junkland-06.json",
-  "junkland-02.json",
-  "junkland-03.json",
-  "junkland-04.json",
-  "thisbetterwork.json",
-   "junkland-05.json",
-  "heart-arrow-looping.json",
 ];
 
 const CELL = 500; // tile size in px
