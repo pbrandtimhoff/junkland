@@ -27,6 +27,7 @@ const ANIMATION_FILES = [
   "pride-icon.json",
   "mentalhealth-icon.json",
   "pride-flag-icon.json",
+  "voting-icon.json",
 ];
 
 const CELL = 500; // tile size in px
